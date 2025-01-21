@@ -14,6 +14,8 @@ paths:
   # готово Комплектации Автомобилей
   /api-car/complectationsNew/create:
     post:
+      tags:
+          - Complectations
       summary: Создание комплектации авто
       description: |
         **Создание комплектации в Bitrix:**
@@ -46,6 +48,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api-car/complectationsNew/update:
     patch:
+      tags:
+          - Complectations
       summary: Обновление комплектации авто
       description: Обновление существующей комплектации авто.
       operationId: updateComplectation
@@ -72,6 +76,8 @@ paths:
   # готово Филиал
   /api-car/dictionary/branch/create:
     post:
+      tags:
+          - Branch
       summary: Создание филиала
       description: Создание записи в справочнике филиалов системы AX.
       operationId: createBranch
@@ -96,6 +102,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api-car/dictionary/branch/update:
     patch:
+      tags:
+          - Branch
       summary: Обновление филиала
       description: Обновление существующего филиала.
       operationId: updateBranch
@@ -122,6 +130,8 @@ paths:
   # готово
   /api-car/marka/create:
     post:
+      tags:
+          - Marka
       summary: Создание марки авто
       description: Создание записи в справочнике марок системы AX.
       operationId: createMarka
@@ -146,6 +156,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api-car/marka/update:
     patch:
+      tags:
+          -  Marka
       summary: Обновление марки авто
       description: Обновление существующей марки авто.
       operationId: updateMarka
@@ -172,6 +184,8 @@ paths:
   # готово
   /api-car/model/create:
     post:
+      tags:
+          - Model
       summary: Создание модели авто
       description: Создание записи в справочнике модели системы AX.
       operationId: createCarModel
@@ -196,6 +210,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api-car/model/update:
     patch:
+      tags:
+          - Model
       summary: Обновление модели авто
       description: Обновление существующей модели авто.
       operationId: updateCarModel
@@ -222,6 +238,8 @@ paths:
   # готово Дополнительное оборудование на машину
   /api-sale-new-auto/additionalEquipment/create:
     post:
+      tags:
+          - AdditionalEquipment
       summary: Создание дополнительного оборудования
       description: Создание записи о дополнительном оборудовании в системе AX.
       operationId: createAdditionalEquipment
@@ -252,6 +270,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api-sale-new-auto/additionalEquipment/update:
     patch:
+      tags:
+          - AdditionalEquipment
       summary: Обновление дополнительного оборудования
       description: Обновление записи о дополнительном оборудовании в системе AX.
       operationId: updateAdditionalEquipment
@@ -284,6 +304,8 @@ paths:
   # готово Авто создание\обновление автомобилей 
   /api-car/cars/create:
     post:
+      tags:
+          - Cars
       summary: Создание машины или квоты
       description: |
         - Создание машины либо квоты на машину в системе AX.
@@ -331,6 +353,8 @@ paths:
                     example: 'Internal Server Error'
   /api-car/cars/update:
     patch:
+      tags:
+          - Cars
       summary: Обновление машины или квоты
       description: |
         - Обновление машины либо квоты на машину в системе AX.
@@ -379,6 +403,8 @@ paths:
   
   /api-car/bodyType/create:
     post:
+      tags:
+          - BodyType
       summary: Создание кузова
       description: Создание модели кузова в справочнике системы AX.
       operationId: createBodyType
@@ -410,6 +436,8 @@ paths:
 
   /api-car/bodyType/update:
     patch:
+      tags:
+          - BodyType
       summary: Обновление кузова
       description: Обновление модели кузова в справочнике системы AX.
       operationId: updateBodyType
@@ -441,6 +469,8 @@ paths:
 
   /api-car/organization/create:
     post:
+      tags:
+          - Organization
       summary: Создание организации
       description: Создание модели организации в справочнике системы AX.
       operationId: createOrganization
@@ -472,6 +502,8 @@ paths:
 
   /api-car/organization/update:
     patch:
+      tags:
+          - Organization
       summary: Обновление организации
       description: Обновление модели организации в справочнике системы AX.
       operationId: updateOrganization
@@ -504,6 +536,8 @@ paths:
   
   /api-car/color/create:
     post:
+      tags:
+          - Color
       summary: Create Color
       description: Create a new color entry in the AX system.
       operationId: createColor
@@ -529,6 +563,8 @@ paths:
 
   /api-car/color/update:
     patch:
+      tags:
+          - Color
       summary: Update Color
       description: Update an existing color entry in the AX system.
       operationId: updateColor
@@ -554,6 +590,8 @@ paths:
 
   /ping:
     get:
+      tags:
+          - Ping
       summary: Check Service Availability
       description: Check if the AA6 service is available.
       operationId: ping
@@ -569,6 +607,8 @@ paths:
 
   /integration/1c/workOrder:
     post:
+      tags:
+          - WorkOrder
       summary: Create or Update Work Order
       description: Create or update work order in AX system.
       operationId: createOrUpdateWorkOrder
@@ -594,6 +634,8 @@ paths:
 
   /integration/1c/payment:
     post:
+      tags:
+          - Payment
       summary: Create or Update Payment
       description: Create or update payment records in AX system.
       operationId: createOrUpdatePayment
@@ -619,6 +661,8 @@ paths:
 
   /integration/1c/roodell-payment:
     post:
+      tags:
+          - RoodellPayment
       summary: Create Roodell Payment
       description: Create a new payment entry for Roodell in the AX system.
       operationId: createRoodellPayment
