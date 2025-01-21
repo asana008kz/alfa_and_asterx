@@ -1,9 +1,0 @@
-pages:
-  script:
-    - mkdir .public
-    - cp -r * .public
-  artifacts:
-    paths:
-      - .public
-  only:
-    - main  # Or replace 'main' with the name of the branch you are using
