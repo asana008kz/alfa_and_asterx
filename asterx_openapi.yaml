@@ -1,0 +1,1235 @@
+openapi: 3.0.0
+info:
+  title: API для работы с комплектациями автомобилей
+  description: |
+    Все запросы к AX происходят по адресу:  asterx.uz/
+    
+    Для совершения всех запросов, необходимо **header** добавлять переменную «**apiKey**»
+  version: 1.0.0
+
+servers:
+  - url: https://asterx.uz/
+
+paths:
+  # готово Комплектации Автомобилей
+  /api-car/complectationsNew/create:
+    post:
+      tags:
+          - Complectations
+      summary: Создание комплектации авто
+      description: |
+        **Создание комплектации в Bitrix:**
+        
+        Модуль: newcar-sales
+        
+        **Описание:**
+        - Создание записи в справочнике комплектаций системы AX.
+        - Запись создается в БД aster_car таблица complectations_new_auto
+        
+      operationId: createComplectation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Complectation'
+      responses:
+        '200':
+          description: Успешное создание комплектации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api-car/complectationsNew/update:
+    patch:
+      tags:
+          - Complectations
+      summary: Обновление комплектации авто
+      description: Обновление существующей комплектации авто.
+      operationId: updateComplectation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateComplectation'
+      responses:
+        '200':
+          description: Успешное обновление комплектации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  # готово Филиал
+  /api-car/dictionary/branch/create:
+    post:
+      tags:
+          - Branch
+      summary: Создание филиала
+      description: Создание записи в справочнике филиалов системы AX.
+      operationId: createBranch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Branch'
+      responses:
+        '200':
+          description: Успешное создание филиала
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api-car/dictionary/branch/update:
+    patch:
+      tags:
+          - Branch
+      summary: Обновление филиала
+      description: Обновление существующего филиала.
+      operationId: updateBranch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBranch'
+      responses:
+        '200':
+          description: Успешное обновление филиала
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  # готово
+  /api-car/marka/create:
+    post:
+      tags:
+          - Marka
+      summary: Создание марки авто
+      description: Создание записи в справочнике марок системы AX.
+      operationId: createMarka
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Marka'
+      responses:
+        '200':
+          description: Успешное создание марки авто
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api-car/marka/update:
+    patch:
+      tags:
+          -  Marka
+      summary: Обновление марки авто
+      description: Обновление существующей марки авто.
+      operationId: updateMarka
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMarka'
+      responses:
+        '200':
+          description: Успешное обновление марки авто
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  # готово
+  /api-car/model/create:
+    post:
+      tags:
+          - Model
+      summary: Создание модели авто
+      description: Создание записи в справочнике модели системы AX.
+      operationId: createCarModel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarModel'
+      responses:
+        '200':
+          description: Успешное создание модели авто
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api-car/model/update:
+    patch:
+      tags:
+          - Model
+      summary: Обновление модели авто
+      description: Обновление существующей модели авто.
+      operationId: updateCarModel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCarModel'
+      responses:
+        '200':
+          description: Успешное обновление модели авто
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  # готово Дополнительное оборудование на машину
+  /api-sale-new-auto/additionalEquipment/create:
+    post:
+      tags:
+          - AdditionalEquipment
+      summary: Создание дополнительного оборудования
+      description: Создание записи о дополнительном оборудовании в системе AX.
+      operationId: createAdditionalEquipment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdditionalEquipment'
+      responses:
+        '200':
+          description: Успешное создание дополнительного оборудования
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Некорректные данные в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка на сервере
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api-sale-new-auto/additionalEquipment/update:
+    patch:
+      tags:
+          - AdditionalEquipment
+      summary: Обновление дополнительного оборудования
+      description: Обновление записи о дополнительном оборудовании в системе AX.
+      operationId: updateAdditionalEquipment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAdditionalEquipment'
+      responses:
+        '200':
+          description: Успешное обновление дополнительного оборудования
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Некорректные данные в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка на сервере
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # готово Авто создание\обновление автомобилей 
+  /api-car/cars/create:
+    post:
+      tags:
+          - Cars
+      summary: Создание машины или квоты
+      description: |
+        - Создание машины либо квоты на машину в системе AX.
+        - Запись создается в БД `aster_car`, таблица `cars`.
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarRequest'
+      responses:
+        '200':
+          description: Успешное создание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarResponse'
+        '400':
+          description: Ошибка запроса
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 'model, complectation, carStatus, color, bodyType, transmission, organization can not be null'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
+  /api-car/cars/update:
+    patch:
+      tags:
+          - Cars
+      summary: Обновление машины или квоты
+      description: |
+        - Обновление машины либо квоты на машину в системе AX.
+        - Запись обновляется в БД `aster_car`, таблица `cars`.
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarRequest'
+      responses:
+        '200':
+          description: Успешное обновление
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarResponse'
+        '400':
+          description: Ошибка запроса
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 'Invalid request parameters'
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 'Internal Server Error'
+  
+  /api-car/bodyType/create:
+    post:
+      tags:
+          - BodyType
+      summary: Создание кузова
+      description: Создание модели кузова в справочнике системы AX.
+      operationId: createBodyType
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyType'
+      responses:
+        '200':
+          description: Успешное создание кузова
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Некорректные данные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка на сервере
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api-car/bodyType/update:
+    patch:
+      tags:
+          - BodyType
+      summary: Обновление кузова
+      description: Обновление модели кузова в справочнике системы AX.
+      operationId: updateBodyType
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBodyType'
+      responses:
+        '200':
+          description: Успешное обновление кузова
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Некорректные данные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Кузов не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api-car/organization/create:
+    post:
+      tags:
+          - Organization
+      summary: Создание организации
+      description: Создание модели организации в справочнике системы AX.
+      operationId: createOrganization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+      responses:
+        '200':
+          description: Успешное создание организации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Некорректные данные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Ошибка на сервере
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api-car/organization/update:
+    patch:
+      tags:
+          - Organization
+      summary: Обновление организации
+      description: Обновление модели организации в справочнике системы AX.
+      operationId: updateOrganization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganization'
+      responses:
+        '200':
+          description: Успешное обновление организации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Некорректные данные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Организация не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+   
+  
+  /api-car/color/create:
+    post:
+      tags:
+          - Color
+      summary: Create Color
+      description: Create a new color entry in the AX system.
+      operationId: createColor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Color'
+      responses:
+        '200':
+          description: Color created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api-car/color/update:
+    patch:
+      tags:
+          - Color
+      summary: Update Color
+      description: Update an existing color entry in the AX system.
+      operationId: updateColor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ColorUpdate'
+      responses:
+        '200':
+          description: Color updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /ping:
+    get:
+      tags:
+          - Ping
+      summary: Check Service Availability
+      description: Check if the AA6 service is available.
+      operationId: ping
+      servers: 
+        - url: http://srv01.aster-auto.kz:8084/alfa_uz/hs/api-asterx/ping
+      responses:
+        '200':
+          description: Service is available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponse'
+
+  /integration/1c/workOrder:
+    post:
+      tags:
+          - WorkOrder
+      summary: Create or Update Work Order
+      description: Create or update work order in AX system.
+      operationId: createOrUpdateWorkOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkOrder'
+      responses:
+        '200':
+          description: Work order processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /integration/1c/payment:
+    post:
+      tags:
+          - Payment
+      summary: Create or Update Payment
+      description: Create or update payment records in AX system.
+      operationId: createOrUpdatePayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          description: Payment processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /integration/1c/roodell-payment:
+    post:
+      tags:
+          - RoodellPayment
+      summary: Create Roodell Payment
+      description: Create a new payment entry for Roodell in the AX system.
+      operationId: createRoodellPayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoodellPayment'
+      responses:
+        '200':
+          description: Payment processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Error in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+   
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+
+  schemas:
+    CarRequest:
+      type: object
+      properties:
+        VIN:
+          type: string
+          description: VIN машины, если создается квота - пустая строка
+          example: "LVTDD24B9ND197116"
+        uuid:
+          type: string
+          description: Уникальный идентификатор машины
+          example: "c33f302f-2503-11ed-b131-00155d6d030a"
+        markaUuid:
+          type: string
+          description: УИД марки авто
+        modelUuid:
+          type: string
+          description: УИД модели авто
+        complectationUuid:
+          type: string
+          description: УИД комплектации
+        colorUuid:
+          type: string
+          description: УИД цвета
+        year:
+          type: integer
+          description: Год выпуска авто
+        transmission:
+          type: string
+          description: Тип КПП
+        bodyTypeUuid:
+          type: string
+          description: Тип кузова
+        engineCapacity:
+          type: integer
+          description: Объем двигателя (необязательно)
+        enginePower:
+          type: integer
+          description: Мощность двигателя (необязательно)
+        rrc:
+          type: integer
+          description: Цена авто
+        carStatusCode:
+          type: string
+          description: Статус авто
+        organizationUuid:
+          type: string
+          description: УИД организации
+        branchUuid:
+          type: string
+          description: УИД склада
+        purpose:
+          type: string
+          description: Тип назначения авто, обязательно если машина для тест-драйва
+        quota:
+          type: object
+          description: Объект с информацией о квоте (если создается квота)
+          properties:
+            complectationUuid:
+              type: string
+              description: Комплектация авто по квоте
+            quotaDate:
+              type: string
+              format: date
+              description: Дата доставки авто (YYYY-MM)
+            amount:
+              type: integer
+              description: Количество квоты
+    CarResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: object
+          description: Информация о созданной или обновленной машине
+          properties:
+            id:
+              type: integer
+              example: 38487
+            vin:
+              type: string
+              example: "LVTDD24B9ND197117"
+            year:
+              type: integer
+              example: 2022
+            price:
+              type: integer
+              example: 466900000
+            carStatus:
+              type: string
+              example: "Тест драйв"
+            branch:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "TASHKENT"
+                name:
+                  type: string
+                  example: "Автомобили Ташкент (ADM-Aster)"
+    
+    Branch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Наименование филиала
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор филиала
+      required:
+        - name
+        - uuid
+    UpdateBranch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Обновленное наименование филиала
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор филиала
+      required:
+        - uuid
+    
+    Marka:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор марки
+        name:
+          type: string
+          description: Наименование марки
+      required:
+        - uuid
+        - name
+    UpdateMarka:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор марки
+        name:
+          type: string
+          description: Обновленное наименование марки
+        isActive:
+          type: boolean
+          description: Актуальность марки
+      required:
+        - uuid
+    
+    Complectation:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Наименование комплектации
+        code1c:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор комплектации
+        transmission:
+          type: string
+          description: Тип коробки передач
+        bodyType:
+          type: string
+          description: Тип кузова
+        volume:
+          type: integer
+          description: Объем двигателя
+        dwheelType:
+          type: string
+          description: Тип привода
+        model:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор модели
+        marka:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор марки
+        options:
+          type: string
+          description: Описание опций
+      required:
+        - name
+        - code1c
+        - model
+        - marka
+    UpdateComplectation:
+      type: object
+      properties:
+        code1c:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор комплектации
+        name:
+          type: string
+          description: Обновленное наименование комплектации
+        transmission:
+          type: string
+          description: Тип коробки передач
+        bodyType:
+          type: string
+          description: Тип кузова
+        volume:
+          type: integer
+          description: Объем двигателя
+        dwheelType:
+          type: string
+          description: Тип привода
+        model:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор модели
+        marka:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор марки
+      required:
+        - code1c
+    
+    CarModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Наименование модели
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор модели
+        markaUuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор марки
+      required:
+        - name
+        - uuid
+        - markaUuid
+    UpdateCarModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Обновленное наименование модели
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор модели
+        isActive:
+          type: boolean
+          description: Актуальность модели
+      required:
+        - uuid
+    
+    AdditionalEquipment:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Наименование дополнительного оборудования
+        rrc:
+          type: integer
+          description: Цена дополнительного оборудования
+        markaUuid:
+          type: string
+          format: uuid
+          description: УИД марки авто
+        modelUuid:
+          type: string
+          format: uuid
+          description: УИД модели авто
+        category:
+          type: string
+          description: Категория оборудования
+          nullable: true
+        uuid:
+          type: string
+          format: uuid
+          description: УИД оборудования
+        isActive:
+          type: boolean
+          description: Актуальность значения
+      required:
+        - name
+        - rrc
+        - markaUuid
+        - modelUuid
+        - uuid
+    UpdateAdditionalEquipment:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: УИД оборудования
+        name:
+          type: string
+          description: Обновленное наименование оборудования
+          nullable: true
+        rrc:
+          type: integer
+          description: Цена оборудования
+          nullable: true
+        markaUuid:
+          type: string
+          format: uuid
+          description: УИД марки авто
+          nullable: true
+        modelUuid:
+          type: string
+          format: uuid
+          description: УИД модели авто
+        category:
+          type: string
+          description: Категория оборудования
+          nullable: true
+        isActive:
+          type: boolean
+          description: Актуальность значения
+          nullable: true
+      required:
+        - uuid
+        - modelUuid
+
+    BodyType:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: УИД кузова
+        name:
+          type: string
+          description: Наименование кузова
+        isActive:
+          type: boolean
+          description: Актуальность значения (по умолчанию true)
+          default: true
+      required:
+        - uuid
+        - name
+    UpdateBodyType:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: УИД кузова
+        name:
+          type: string
+          description: Обновленное наименование кузова
+        isActive:
+          type: boolean
+          description: Актуальность значения
+      required:
+        - uuid
+        - name
+    
+    Organization:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: УИД организации
+        name:
+          type: string
+          description: Наименование организации
+        iin:
+          type: string
+          description: ИНН организации
+      required:
+        - uuid
+        - name
+        - iin
+    UpdateOrganization:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: УИД организации
+        name:
+          type: string
+          description: Обновленное наименование организации
+        iin:
+          type: string
+          description: Обновленный ИНН организации
+      required:
+        - uuid
+        - name
+        - iin
+
+
+    Color:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+      required:
+        - uuid
+        - name
+
+    ColorUpdate:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        isActive:
+          type: boolean
+      required:
+        - uuid
+        - name
+
+    WorkOrder:
+      type: object
+      properties:
+        woNum:
+          type: string
+        woDate:
+          type: string
+          format: date-time
+        openDate:
+          type: string
+          format: date-time
+        closeDate:
+          type: string
+          format: date-time
+        woState:
+          type: string
+        repairType:
+          type: string
+        totalWoAmount:
+          type: string
+        vin:
+          type: string
+      required:
+        - woNum
+        - vin
+
+    Payment:
+      type: object
+      properties:
+        payNum:
+          type: string
+        payDate:
+          type: string
+          format: date-time
+        payType:
+          type: string
+        payCcy:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayCcy'
+      required:
+        - payNum
+
+    PayCcy:
+      type: object
+      properties:
+        currency:
+          type: string
+        wo:
+          type: string
+        payAmtCredit:
+          type: string
+        payAmtDebet:
+          type: string
+        payAmtReglCredit:
+          type: string
+        payAmtReglDebet:
+          type: string
+
+    RoodellPayment:
+      type: object
+      properties:
+        paymentDate:
+          type: string
+          format: date
+        dateAgreement:
+          type: string
+          format: date
+        carPrice:
+          type: integer
+        clientPaymentSum:
+          type: integer
+        differenceSum:
+          type: integer
+        contractNumber:
+          type: string
+      required:
+        - paymentDate
+        - clientPaymentSum
+        - contractNumber
+    PingResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+
+
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: object
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: fail
+        message:
+          type: string
+

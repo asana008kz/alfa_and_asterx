@@ -7,23 +7,55 @@
     <link rel="stylesheet" type="text/css" href="index.css" />
     <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #swagger-ui {
+        margin-top: 10px;
+      }
+      #api-selector {
+        margin: 10px;
+        text-align: center;
+      }
+    </style>
   </head>
 
   <body>
+    <div id="api-selector">
+      <label for="api">Select API:</label>
+      <select id="api">
+        <option value="alfa_auto_openapi.yaml">AsterX => AsterAlfaAuto</option>
+        <option value="asterx_openapi.yaml">AsterAlfaAuto => AsterX</option>
+      </select>
+    </div>
+
     <div id="swagger-ui"></div>
+
     <script src="./swagger-ui-bundle.js" charset="UTF-8"> </script>
     <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
     <script>
-      const ui = SwaggerUIBundle({
-        url: "alfa_auto_openapi.yaml",  // Update this with your file name
-        dom_id: '#swagger-ui',
-        presets: [
-          SwaggerUIBundle.presets.apis,
-          SwaggerUIStandalonePreset
-        ],
-        layout: "StandaloneLayout"
+      function loadSwaggerUI(url) {
+        SwaggerUIBundle({
+          url: url,
+          dom_id: '#swagger-ui',
+          presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+          ],
+          layout: "StandaloneLayout"
+        });
+      }
+
+      // Load the default API
+      const apiSelector = document.getElementById('api');
+      loadSwaggerUI(apiSelector.value);
+
+      // Change the API when a new option is selected
+      apiSelector.addEventListener('change', (event) => {
+        loadSwaggerUI(event.target.value);
       });
     </script>
   </body>
 </html>
-
