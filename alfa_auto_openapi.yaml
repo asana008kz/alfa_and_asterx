@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: Обмен AsterX => Alfa Auto
+  title: Aster Alfa Auto API
   description: |-
     Описание
   version: kz
 servers:
-  - url: https://alfa-auto.kz
+  - url: https://aster-alfa-auto.kz
 
 paths:
   /amp-estimate-kz:
@@ -109,7 +109,7 @@ components:
           example: "2025-01-22T20:50:43"
         id:
           type: string
-          example: "425212"
+          example: "421212"
         car:
           $ref: '#/components/schemas/Car'
         keyCount:
@@ -117,7 +117,7 @@ components:
           example: 1
         plateNumber:
           type: string
-          example: "959JAA01"
+          example: "980JBA08"
         techPassport:
           $ref: '#/components/schemas/TechPassport'
         organizationBin:
@@ -128,18 +128,18 @@ components:
           example: "26"
         RRC:
           type: integer
-          example: 11110000
+          example: 11147000
         planSalePrice:
           type: integer
-          example: 10710000
+          example: 10730000
         client:
           $ref: '#/components/schemas/Client'
         managerIin:
           type: string
-          example: "990802300976"
+          example: "990802304876"
         ossManagerIin:
           type: string
-          example: "001220601086"
+          example: "001220606986"
         damages:
           type: array
           items:
@@ -165,7 +165,7 @@ components:
       properties:
         vin:
           type: string
-          example: "Z8NFBAJ11ES089400"
+          example: "Z8NFBAJ11ES077890"
         markaId:
           type: integer
           example: 97
@@ -220,7 +220,7 @@ components:
           example: 1046
         vin:
           type: string
-          example: "Z8NTBNT32ES150987"
+          example: "Z8NFBAJ11ES077890"
         year:
           type: integer
           example: 2021
@@ -229,7 +229,7 @@ components:
           example: 14000
         plateNumber:
           type: string
-          example: "752FHA02"
+          example: "799FBA07"
         uuid:
           type: string
           format: uuid
@@ -244,7 +244,7 @@ components:
           example: "2019-11-20T00:00:00"
         number:
           type: string
-          example: "00438860"
+          example: "00998860"
         series:
           type: string
           example: "ZJ"
@@ -260,10 +260,10 @@ components:
           example: "951109400079"
         lastName:
           type: string
-          example: "БАБАШЕВА"
+          example: "ИВАНОВА"
         firstName:
           type: string
-          example: "АЛЬФИЯ"
+          example: "МАРИЯ"
         middleName:
           type: string
           example: "МАРСЛИНКЫЗЫ"
@@ -273,13 +273,13 @@ components:
         birthdate:
           type: string
           format: date
-          example: "1995-11-09"
+          example: "1980-11-09"
         language:
           type: string
           example: "RU"
         phone:
           type: string
-          example: "77014827717"
+          example: "77011234567"
         email:
           type: string
           example: ""
@@ -299,7 +299,7 @@ components:
       properties:
         postAddress:
           type: string
-          example: "г.Алматы Медеуский район Хоружей 75"
+          example: "г.Алматы Медеуский район Хоружей 48"
 
     Document:
       type: object
@@ -312,11 +312,11 @@ components:
           example: ""
         number:
           type: string
-          example: "042555774"
+          example: "055555554"
         dateOfIssue:
           type: string
           format: date
-          example: "2017-04-07"
+          example: "2020-04-07"
         issuedAuthority:
           type: string
           example: "МВД РК"
@@ -329,7 +329,7 @@ components:
           example: "Александр    "
         phone1:
           type: string
-          example: "87473096585"
+          example: "87011234556"
         language:
           type: string
           example: "Русский"
@@ -379,7 +379,7 @@ components:
         link:
           type: string
           format: uri
-          example: "https://api:api@oktell.aster-auto.kz:443/download/byscript?name\\u003ddownload_rec\\u0026startparam1\\u003d1C5EAFF1-E2C8-4516-A96A-9FC456875AF4\\u0026async\\u003d0\\u0026timeout\\u003d10"
+          example: "https://api:api@oktell.aster-auto.kz:443/download/byscript?name\\u003ddownload_rec\\u0026startparam1\\u003d1C5EAFF1-E2C8-4516-A96A-7FC556875AF4\\u0026async\\u003d0\\u0026timeout\\u003d10"
         TimeStart:
           type: string
           format: date-time
@@ -394,7 +394,7 @@ components:
           example: "2025-01-22T17:40:28.400"
         Astr:
           type: string
-          example: "87473096585"
+          example: "87011236585"
         Bstr:
           type: string
           example: "Өмірбек Санжар"
@@ -442,13 +442,13 @@ components:
           example: false
         iin:
           type: string
-          example: "760508401440"
+          example: "800508405540"
         firstName:
           type: string
-          example: "Евгения"
+          example: "Трамп"
         lastName:
           type: string
-          example: "Боженко"
+          example: "Иванка"
         middleName:
           type: string
           example: "Валерьевна"
@@ -461,7 +461,7 @@ components:
           example: "0001-01-01T00:00:00"
         phone:
           type: string
-          example: "+7 (777) 244-49-27"
+          example: "+7 (701) 555-49-18"
         language:
           type: string
           example: "RU"
@@ -481,13 +481,13 @@ components:
       properties:
         iin:
           type: string
-          example: "980716301281"
+          example: "850716308881"
 
     Author:
       type: object
       properties:
         iin:
           type: string
-          example: "011030500685"
+          example: "801030506685"
 
 
