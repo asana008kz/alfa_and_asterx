@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Aster Alfa Auto API
   description: |-
-    Описание
+    Описание API
   version: kz
 servers:
   - url: https://alfa-auto.kz
