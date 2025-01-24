@@ -924,7 +924,7 @@ components:
           example: "Александр    "
         phone1:
           type: string
-          example: "87473096585"
+          example: "87011236585"
         language:
           type: string
           example: "Русский"
@@ -989,10 +989,10 @@ components:
           example: "2025-01-22T17:40:28.400"
         Astr:
           type: string
-          example: "87473096585"
+          example: "87013096585"
         Bstr:
           type: string
-          example: "Өмірбек Санжар"
+          example: "Иванов Иван"
     
     RepairOrder:
       type: object
