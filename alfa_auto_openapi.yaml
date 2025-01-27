@@ -8,6 +8,61 @@ servers:
   - url: https://alfa-auto.kz
 
 paths:
+  /amp-book-car:
+    post:
+      tags:
+        - AMP book car
+      summary: Бронь автомобиля
+      description: Бронь автомобиля
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                wlUuid:
+                  type: string
+                  description: UUID of the waiting list.
+                  example: 5bbvd788c-66er-11ed-b130-00155d6d030a
+                carUuid:
+                  type: string
+                  description: UUID of the car to be reserved.
+                  example: 2aeeb6cc-22bf-11ed-b130-00155d6d030a
+                clientUuid:
+                  type: string
+                  description: UUID of the client making the reservation.
+                  example: d00a3924-d8db-11ed-a375-00155d1e6c05
+                book:
+                  type: boolean
+                  description: Indicates whether to reserve (`true`) or cancel the reservation (`false`).
+                  example: true
+              required:
+                - wlUuid
+                - carUuid
+                - book
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: '#/components/schemas/AMPEstimateResponseData'
+        '400':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseAPI'
+        
   /amp-estimate-kz:
     post:
       tags:
@@ -43,6 +98,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponseAPI'
         
+  /car-shipping-price:
+    get:
+      tags:
+        - Car shipping price
+      summary: Получение цены доставки
+      description: Получение цены доставки
+      parameters:
+        - name: VIN
+          in: query
+          description: The Vehicle Identification Number (VIN) of the car.
+          required: true
+          schema:
+            type: string
+            example: MX1CNAAAXRK016648
+        - name: destinationId
+          in: query
+          description: The ID of the destination for shipping.
+          required: true
+          schema:
+            type: string
+            example: 00056
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shippingPrice:
+                    type: integer
+                    example: 425212
   /repairCall:
     post:
       tags:
@@ -331,7 +418,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkList'
+              $ref: '#/components/schemas/WorkListKZ'
       responses:
         '200':
           description: Successful operation
@@ -757,6 +844,8 @@ components:
 
     Car:
       type: object
+      required:
+        - vin
       properties:
         vin:
           type: string
@@ -881,7 +970,7 @@ components:
         address:
           $ref: '#/components/schemas/Address'
         document:
-          $ref: '#/components/schemas/Document'
+          $ref: '#/components/schemas/ContragentDocument'
         name:
           type: string
           example: ""
@@ -896,8 +985,15 @@ components:
           type: string
           example: "г.Алматы Медеуский район Хоружей 75"
 
-    Document:
+    ContragentDocument:
       type: object
+      required:
+        - number
+        - issuedAuthority
+        - documentType
+        - series
+        - dateOfIssue
+        - dateOfExpiration
       properties:
         documentType:
           type: string
@@ -1360,6 +1456,10 @@ components:
 
     WorkListDocs:
       type: object
+      required:
+        - workListNumber
+        - docType
+        - lang
       properties:
         lang:
           type: string
@@ -1405,8 +1505,24 @@ components:
           description: Middle name of the trustee
           example: "Ивановна"
 
-    WorkList:
+    WorkListKZ:
       type: object
+      required:
+        - id
+        - netPrice
+        - totalPrice
+        - comments
+        - salesManagerIin
+        - finManagerIin
+        - warehouseId
+        - contragent
+        - contactStatus
+        - car
+        - organizationBin
+        - payment
+        - discounts
+        - oktellSaleType
+        - date
       properties:
         netPrice:
           type: integer
@@ -1467,6 +1583,10 @@ components:
 
     AdditionalService:
       type: object
+      required:
+        - code
+        - price
+        - saleType
       properties:
         code:
           type: string
@@ -1483,6 +1603,20 @@ components:
 
     Contragent:
       type: object
+      required:
+        - iin
+        - birthdate
+        - address
+        - clientLanguage
+        - gender
+        - document
+        - firstName
+        - lastName
+        - middleName
+        - phone
+        - isBusiness
+        - countryCode
+        - email
       properties:
         document:
           $ref: '#/components/schemas/ContragentDocument'
@@ -1527,32 +1661,11 @@ components:
           type: boolean
           example: false
 
-    ContragentDocument:
-      type: object
-      properties:
-        number:
-          type: string
-          example: '052274311'
-        issuedAuthority:
-          type: string
-          example: 'МВД РК'
-        documentType:
-          type: string
-          example: 'IDENTITY_CARD'
-        series:
-          type: string
-          example: ''
-        dateOfIssue:
-          type: string
-          format: date-time
-          example: '2022-12-14T06:00:00'
-        dateOfExpiration:
-          type: string
-          format: date-time
-          example: '2031-12-13T05:00:00'
-
     WorkListCar:
       type: object
+      required:
+        - VIN
+        - oneCId
       properties:
         oneCId:
           type: string
@@ -1563,6 +1676,15 @@ components:
 
     Payment:
       type: object
+      required:
+        - prepaymentPercentage
+        - prepaymentAmount
+        - saleType
+        - creditBankBin
+        - interestRate
+        - creditTerm
+        - creditAmount
+        - creditProgramId
       properties:
         prepaymentPercentage:
           type: number
@@ -1586,6 +1708,16 @@ components:
 
     Discounts:
       type: object
+      required:
+        - manual
+        - tradeIn
+        - salesSupport
+        - rehandling
+        - overprice
+        - bonusTotal
+        - partnerBank
+        - shippingServices
+        - rehandlingOverprice
       properties:
         manual:
           type: integer
