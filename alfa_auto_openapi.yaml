@@ -846,6 +846,11 @@ components:
       type: object
       required:
         - vin
+        - markaId
+        - modelId
+        - variantId
+        - year
+        - mileage
       properties:
         vin:
           type: string
