@@ -78,6 +78,8 @@ paths:
           schema:
             type: string
             example: 00056
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: successful operation
