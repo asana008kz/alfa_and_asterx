@@ -8,60 +8,17 @@ servers:
   - url: https://alfa-auto.kz
 
 paths:
-  /amp-book-car:
-    post:
+  /ping:
+    get:
       tags:
-        - AMP book car
-      summary: Бронь автомобиля
-      description: Бронь автомобиля
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                wlUuid:
-                  type: string
-                  description: UUID of the waiting list.
-                  example: 5bbvd788c-66er-11ed-b130-00155d6d030a
-                carUuid:
-                  type: string
-                  description: UUID of the car to be reserved.
-                  example: 2aeeb6cc-22bf-11ed-b130-00155d6d030a
-                clientUuid:
-                  type: string
-                  description: UUID of the client making the reservation.
-                  example: d00a3924-d8db-11ed-a375-00155d1e6c05
-                book:
-                  type: boolean
-                  description: Indicates whether to reserve (`true`) or cancel the reservation (`false`).
-                  example: true
-              required:
-                - wlUuid
-                - carUuid
-                - book
+        - Ping
+      summary: Тестирование связи
+      description: Подробное описание
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                properties:
-                  status:
-                    type: string
-                    example: "success"
-                  message:
-                    type: string
-                    example: ""
-                  data:
-                    $ref: '#/components/schemas/AMPEstimateResponseData'
-        '400':
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponseAPI'
         
   /amp-estimate-kz:
     post:
@@ -76,6 +33,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CarSale'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -119,6 +78,8 @@ paths:
           schema:
             type: string
             example: 00056
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: successful operation
@@ -143,6 +104,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RepairCall'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -180,6 +143,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RepairOrder'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -225,6 +190,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RepairOrder'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -269,6 +236,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AMPCar'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -319,6 +288,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WheelsInventory'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -368,6 +339,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListDocs'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -419,6 +392,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListKZ'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -464,6 +439,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListUpdate'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -510,6 +487,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListNewBill'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -556,6 +535,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListUsedCarSale'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -602,6 +583,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListWheelsDocs'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -650,6 +633,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListWheelsPurchase'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -696,6 +681,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListWheelsPurchase'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -745,6 +732,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/WorkListWheelsSale'
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Successful operation
@@ -781,6 +770,11 @@ paths:
                     example: ""
     
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # Optional, but helps document expected token type
   schemas:
     CarSale:
       type: object
