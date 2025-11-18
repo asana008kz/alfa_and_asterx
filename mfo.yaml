@@ -1,0 +1,1369 @@
+openapi: 3.0.3
+info:
+  title: Микрофинансовая организация
+  description: |-
+    Сервис кредитования
+  version: kz
+servers:
+  - url: https://unknown.kz
+
+paths:
+  /leads/ping:
+    get:
+      tags:
+        - Ping
+      summary: Тестирование связи
+      description: Подробное описание
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+        
+  /leads:
+    post:
+      tags:
+        - Сервис создания заявки
+      summary: Краткое описание
+      description: Подробное описание
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: '#/components/schemas/AMPEstimateResponseData'
+        '400':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseAPI'
+        
+    
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # Optional, but helps document expected token type
+  schemas:
+    Lead:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
+        borrower:
+          $ref: '#/components/schemas/Client'
+        managerIin:
+          type: string
+          example: "990802300976"
+        id:
+          type: string
+          example: "425212"
+        car:
+          $ref: '#/components/schemas/Car'
+        keyCount:
+          type: integer
+          example: 1
+        plateNumber:
+          type: string
+          example: "959JAA01"
+        techPassport:
+          $ref: '#/components/schemas/TechPassport'
+        organizationBin:
+          type: string
+          example: "210440014621"
+        receiptTypeOfUsedCar:
+          type: string
+          example: "26"
+        RRC:
+          type: integer
+          example: 11110000
+        planSalePrice:
+          type: integer
+          example: 10710000
+        client:
+          $ref: '#/components/schemas/Client'
+        managerIin:
+          type: string
+          example: "990802300976"
+        ossManagerIin:
+          type: string
+          example: "001220601086"
+        damages:
+          type: array
+          items:
+            type: object
+        divisionCode:
+          type: string
+          example: "110"
+        finalPrice:
+          type: integer
+          example: 9000000
+        contractPrice:
+          type: integer
+          example: 9000000
+        willBeFixedParts:
+          type: integer
+          example: 39000
+        willBeFixedLabor:
+          type: integer
+          example: 59000
+
+    CarSale:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
+        id:
+          type: string
+          example: "425212"
+        car:
+          $ref: '#/components/schemas/Car'
+        keyCount:
+          type: integer
+          example: 1
+        plateNumber:
+          type: string
+          example: "959JAA01"
+        techPassport:
+          $ref: '#/components/schemas/TechPassport'
+        organizationBin:
+          type: string
+          example: "210440014621"
+        receiptTypeOfUsedCar:
+          type: string
+          example: "26"
+        RRC:
+          type: integer
+          example: 11110000
+        planSalePrice:
+          type: integer
+          example: 10710000
+        client:
+          $ref: '#/components/schemas/Client'
+        managerIin:
+          type: string
+          example: "990802300976"
+        ossManagerIin:
+          type: string
+          example: "001220601086"
+        damages:
+          type: array
+          items:
+            type: object
+        divisionCode:
+          type: string
+          example: "110"
+        finalPrice:
+          type: integer
+          example: 9000000
+        contractPrice:
+          type: integer
+          example: 9000000
+        willBeFixedParts:
+          type: integer
+          example: 39000
+        willBeFixedLabor:
+          type: integer
+          example: 59000
+
+    Car:
+      type: object
+      required:
+        - vin
+        - markaId
+        - modelId
+        - variantId
+        - year
+        - mileage
+      properties:
+        vin:
+          type: string
+          example: "Z8NFBAJ11ES089400"
+        markaId:
+          type: integer
+          example: 97
+        modelId:
+          type: integer
+          example: 1030
+        variantId:
+          type: integer
+          example: 14199
+        year:
+          type: integer
+          example: 2019
+        bodyTypeId:
+          type: string
+          example: "6"
+        dwheelType:
+          type: string
+          example: "Передний"
+        transmissionId:
+          type: string
+          example: "1"
+        engineVolume:
+          type: string
+          example: "1997"
+        engineTypeId:
+          type: string
+          example: "1"
+        color:
+          type: string
+          example: "Белый"
+        mileage:
+          type: integer
+          example: 58371
+        interiorMaterials:
+          type: string
+          example: "Темный"
+        steering:
+          type: string
+          example: "1"
+        engineNumber:
+          type: string
+          example: "?"
+    
+    CarRepairOrder:
+      type: object
+      properties:
+        markaId:
+          type: integer
+          example: 97
+        modelId:
+          type: integer
+          example: 1046
+        vin:
+          type: string
+          example: "Z8NTBNT32ES150987"
+        year:
+          type: integer
+          example: 2021
+        mileage:
+          type: integer
+          example: 14000
+        plateNumber:
+          type: string
+          example: "752FHA02"
+        uuid:
+          type: string
+          format: uuid
+          example: "18115f8f-7e6c-11ec-85fc-00155d1ea000"
+          
+    TechPassport:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2019-11-20T00:00:00"
+        number:
+          type: string
+          example: "00438860"
+        series:
+          type: string
+          example: "ZJ"
+
+    Client:
+      type: object
+      properties:
+        isBusiness:
+          type: boolean
+          example: false
+        iin:
+          type: string
+          example: "951109400079"
+        lastName:
+          type: string
+          example: "ИВАНОВА"
+        firstName:
+          type: string
+          example: "ИВАНКА"
+        middleName:
+          type: string
+          example: "ИВАНОВНА"
+        gender:
+          type: string
+          example: "F"
+        birthdate:
+          type: string
+          format: date
+          example: "1984-11-10"
+        language:
+          type: string
+          example: "RU"
+        phone:
+          type: string
+          example: "77011237717"
+        email:
+          type: string
+          example: ""
+        address:
+          $ref: '#/components/schemas/Address'
+        document:
+          $ref: '#/components/schemas/ContragentDocument'
+        name:
+          type: string
+          example: ""
+        fullName:
+          type: string
+          example: ""
+
+    Address:
+      type: object
+      properties:
+        postAddress:
+          type: string
+          example: "г.Алматы Медеуский район Хоружей 75"
+
+    ContragentDocument:
+      type: object
+      required:
+        - number
+        - issuedAuthority
+        - documentType
+        - series
+        - dateOfIssue
+        - dateOfExpiration
+      properties:
+        documentType:
+          type: string
+          example: "Удостоверение личности РК"
+        series:
+          type: string
+          example: ""
+        number:
+          type: string
+          example: "042555774"
+        dateOfIssue:
+          type: string
+          format: date
+          example: "2017-04-07"
+        issuedAuthority:
+          type: string
+          example: "МВД РК"
+
+    RepairCall:
+      type: object
+      properties:
+        client:
+          type: string
+          example: "Александр    "
+        phone1:
+          type: string
+          example: "87011236585"
+        language:
+          type: string
+          example: "Русский"
+        sex:
+          type: string
+          example: "m"
+        city:
+          type: string
+          example: "Астана"
+        branchCode:
+          type: string
+          format: uuid
+          example: "d302d40a-0683-11ed-9c2d-00155d065400"
+        brand:
+          type: string
+          example: "LADA"
+        model:
+          type: string
+          example: "Granta"
+        customerQuestion:
+          type: string
+          example: "есть вопросы насчет замены масла и замены колодки"
+        date:
+          type: string
+          format: date-time
+          example: "2025-01-22T05:00:00"
+        time:
+          type: string
+          example: "17:44"
+        link:
+          type: array
+          items:
+            $ref: '#/components/schemas/RepairCallLinkDetails'
+        status:
+          type: integer
+          example: 1
+        oktellId:
+          type: integer
+          example: 89782
+        id:
+          type: integer
+          example: 15033
+
+    RepairCallLinkDetails:
+      type: object
+      properties:
+        link:
+          type: string
+          format: uri
+          example: "https://api:api@oktell.aster-auto.kz:443/download/byscript?name\\u003ddownload_rec\\u0026startparam1\\u003d1C5EAFF1-E2C8-4516-A96A-9FC456875AF4\\u0026async\\u003d0\\u0026timeout\\u003d10"
+        TimeStart:
+          type: string
+          format: date-time
+          example: "2025-01-22T17:39:32.003"
+        TimeAnswer:
+          type: string
+          format: date-time
+          example: "2025-01-22T17:39:33.983"
+        TimeStop:
+          type: string
+          format: date-time
+          example: "2025-01-22T17:40:28.400"
+        Astr:
+          type: string
+          example: "87013096585"
+        Bstr:
+          type: string
+          example: "Иванов Иван"
+    
+    RepairOrder:
+      type: object
+      properties:
+        organization:
+          type: string
+          format: uuid
+          example: "e7659be2-02c2-11ed-b241-00155d1e900f"
+        owner:
+          $ref: '#/components/schemas/Person'
+        client:
+          $ref: '#/components/schemas/Person'
+        masterReceiver:
+          $ref: '#/components/schemas/Receiver'
+        author:
+          $ref: '#/components/schemas/Author'
+        repairType:
+          type: string
+          example: "Платный"
+        repairKind:
+          type: string
+          format: uuid
+          example: "bc9fc978-4855-11ed-b244-00155d1e900f"
+        car:
+          $ref: '#/components/schemas/CarRepairOrder'
+        malfunctions:
+          type: string
+          example: "проверка задних бампер, дефекты хочет проверить все в порядке"
+        division:
+          type: string
+          format: uuid
+          example: "6cd2d373-03e4-11ed-9c2c-00155d065400"
+        requestType:
+          type: string
+          example: ""
+
+    Person:
+      type: object
+      properties:
+        isBusiness:
+          type: boolean
+          example: false
+        iin:
+          type: string
+          example: "760508401440"
+        firstName:
+          type: string
+          example: "Евгения"
+        lastName:
+          type: string
+          example: "Боженко"
+        middleName:
+          type: string
+          example: "Валерьевна"
+        gender:
+          type: string
+          example: "F"
+        birthdate:
+          type: string
+          format: date-time
+          example: "0001-01-01T00:00:00"
+        phone:
+          type: string
+          example: "+7 (777) 244-49-27"
+        language:
+          type: string
+          example: "RU"
+        address:
+          type: object
+          additionalProperties: true
+        payer:
+          type: boolean
+          example: true
+        uuid:
+          type: string
+          format: uuid
+          example: "3ade22b5-02b6-11ea-80dc-ac1f6b97462f"
+
+    Receiver:
+      type: object
+      properties:
+        iin:
+          type: string
+          example: "980716301281"
+
+    Author:
+      type: object
+      properties:
+        iin:
+          type: string
+          example: "011030500685"
+    
+    AMPEstimateResponseData:
+      type: object
+      properties:
+        redemptionWorkListUuid:
+          type: string
+          format: uuid
+          example: "3771ac9a-d99f-11ef-9a2a-00155d29c505"
+        carReceiptUuid:
+          type: string
+          format: uuid
+          example: "3771b485-d99f-11ef-9a2a-00155d29c505"
+        carAppraisalUuid:
+          type: string
+          format: uuid
+          example: "3d0af86c-d99f-11ef-9a2a-00155d29c505"
+        carUuid:
+          type: string
+          format: uuid
+          example: "04b7157f-d967-11ef-9a2a-00155d29c505"
+        contragentUUID:
+          type: string
+          format: uuid
+          example: "237c6bcc-d8b5-11ef-9a2a-00155d29c505"
+        agreementUuid:
+          type: string
+          format: uuid
+          example: "3771b106-d99f-11ef-9a2a-00155d29c505"
+        agreementNumber:
+          type: string
+          example: "000174513"
+          
+    RepairOrderResponseData:
+      type: object
+      properties:
+        repairOrderUUID:
+          type: string
+          format: uuid
+          example: "1dab9a6f-d98a-11ef-9a2a-00155d29c505"
+        repairOrderNo:
+          type: string
+          example: "АК110ЗАР-00000000520"
+        carUUID:
+          type: string
+          format: uuid
+          example: "a699d88a-6102-11ee-9c0e-00155d83aa00"
+        ownerUUID:
+          type: string
+          format: uuid
+          example: "148b233e-16ad-11ef-9a24-00155d29c603"
+        clientUUID:
+          type: string
+          format: uuid
+          example: "148b233e-16ad-11ef-9a24-00155d29c603"
+    
+    ErrorResponseAPI:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Неверный формат данных: (Описание ошибки)"
+        data:
+          type: string
+          example: ""
+  
+    AMPCar:
+      type: object
+      properties:
+        VIN:
+          type: string
+          description: Vehicle Identification Number
+          example: "LSGKB54H6PV884440"
+        markaId:
+          type: integer
+          description: ID of the car brand
+          example: 112
+        modelId:
+          type: integer
+          description: ID of the car model
+          example: 1154
+        variantId:
+          type: integer
+          description: ID of the car variant
+          example: 69543
+        year:
+          type: integer
+          description: Manufacturing year of the car
+          example: 2023
+        mileage:
+          type: integer
+          description: Mileage of the car in kilometers
+          example: 11
+
+    WheelsInventory:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: The date and time of the inventory record
+          example: "2025-01-18T12:08:42"
+        id:
+          type: string
+          description: Unique identifier for the inventory record
+          example: "2452"
+        storekeeperIin:
+          type: string
+          description: IIN of the storekeeper
+          example: "456354643563"
+        tyreSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TyreSet'
+        warehouseId:
+          type: string
+          description: Unique identifier for the warehouse
+          example: "000000965"
+
+    TyreSet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the tyre set
+          example: "2452"
+        price:
+          type: string
+          description: Total price of the tyre set
+          example: "61050"
+        mark:
+          type: string
+          description: Mark of the tyre set
+          example: "110"
+        model:
+          type: string
+          description: Model of the tyre set
+          example: "1714"
+        country:
+          type: string
+          description: Country of manufacture
+          example: "Россия"
+        radius:
+          type: string
+          description: Radius of the tyres
+          example: "17.0"
+        width:
+          type: string
+          description: Width of the tyres
+          example: "215.0"
+        height:
+          type: string
+          description: Height of the tyres
+          example: "60.0"
+        year:
+          type: string
+          description: Year of manufacture
+          example: "2019"
+        week:
+          type: string
+          description: Week of manufacture
+          example: "37"
+        average_wear:
+          type: string
+          description: Average wear percentage
+          example: "46.0"
+        average_tread_depth:
+          type: string
+          description: Average tread depth in mm
+          example: "5.21"
+        set_amount:
+          type: string
+          description: Number of tyres in the set
+          example: "4"
+        season:
+          type: string
+          description: Season of the tyres
+          example: "Лето"
+        storageLevel1:
+          type: string
+          description: Primary storage level
+          example: "15"
+        storageLevel2:
+          type: string
+          description: Secondary storage level
+          example: "1"
+        storageLevel3:
+          type: string
+          description: Tertiary storage level
+          example: "10"
+        rims:
+          type: array
+          items:
+            type: object
+            description: Placeholder for rim details
+        tyres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tyre'
+
+    Tyre:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the tyre
+          example: "3351"
+        price:
+          type: string
+          description: Price of the tyre
+          example: "15262"
+        mark:
+          type: string
+          description: Mark of the tyre
+          example: "110"
+        model:
+          type: string
+          description: Model of the tyre
+          example: "1714"
+        country:
+          type: string
+          description: Country of manufacture
+          example: "Россия"
+        radius:
+          type: string
+          description: Radius of the tyre
+          example: "17.0"
+        width:
+          type: string
+          description: Width of the tyre
+          example: "215.0"
+        height:
+          type: string
+          description: Height of the tyre
+          example: "60.0"
+        year:
+          type: string
+          description: Year of manufacture
+          example: "2019"
+        week:
+          type: string
+          description: Week of manufacture
+          example: "37"
+        wear:
+          type: string
+          description: Wear percentage
+          example: "27"
+        wear_type:
+          type: string
+          description: Type of wear
+          example: "Равномерный"
+        tread_depth:
+          type: string
+          description: Tread depth in mm
+          example: "6.37"
+        tire_stud_percentage:
+          type: string
+          description: Percentage of tire studs remaining
+          example: "0"
+        has_micro_crack:
+          type: boolean
+          description: Indicates if the tyre has micro cracks
+          example: true
+        critical_injury:
+          type: string
+          description: Description of critical injuries
+          example: ""
+        season:
+          type: string
+          description: Season of the tyre
+          example: "Лето"
+
+    WorkListDocs:
+      type: object
+      required:
+        - workListNumber
+        - docType
+        - lang
+      properties:
+        lang:
+          type: string
+          description: Language code
+          example: "RU"
+        workListNumber:
+          type: string
+          description: Work list number
+          example: "278238"
+        docType:
+          type: string
+          description: Type of document
+          example: "bill"
+        docFormat:
+          type: string
+          description: Format of the document
+          example: "XLSX"
+        trustee:
+          $ref: '#/components/schemas/Trustee'
+        issueDate:
+          type: string
+          format: date-time
+          description: Date and time the document was issued
+          example: "2024-05-22T09:14:16"
+        procurationNumber:
+          type: string
+          description: Procuration number
+          example: "114"
+
+    Trustee:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the trustee
+          example: "Иванка"
+        lastName:
+          type: string
+          description: Last name of the trustee
+          example: "Иванова"
+        middleName:
+          type: string
+          description: Middle name of the trustee
+          example: "Ивановна"
+
+    WorkListKZ:
+      type: object
+      required:
+        - id
+        - netPrice
+        - totalPrice
+        - comments
+        - salesManagerIin
+        - finManagerIin
+        - warehouseId
+        - contragent
+        - contactStatus
+        - car
+        - organizationBin
+        - payment
+        - discounts
+        - oktellSaleType
+        - date
+      properties:
+        netPrice:
+          type: integer
+          example: 10050000
+        totalPrice:
+          type: integer
+          example: 10218000
+        comments:
+          type: string
+          example: '{"gender":"M","visitType":"1","budget":"8-10","approximateBuy":"fewDays","prepayment":0,"carOwnership":0,"creditProcent":0,"paymentType":"credit","additionalInfo":"","isTradeIn":false}'
+        salesManagerIin:
+          type: string
+          example: '010216501651'
+        finManagerIin:
+          type: string
+          example: '021211601050'
+        additionalServices:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalService'
+        warehouseId:
+          type: string
+          example: ''
+        contragent:
+          $ref: '#/components/schemas/Contragent'
+        car:
+          $ref: '#/components/schemas/WorkListCar'
+        payment:
+          $ref: '#/components/schemas/Payment'
+        discounts:
+          $ref: '#/components/schemas/Discounts'
+        date:
+          type: string
+          format: date-time
+          example: '2025-01-23T20:57:35'
+        status:
+          type: string
+          example: 'on_pre_agreement'
+        id:
+          type: string
+          example: '786456'
+        tradein:
+          type: boolean
+          example: false
+        tradeinCarVin:
+          type: string
+          example: null
+        plannedIssueDate:
+          type: string
+          format: date-time
+          example: '2025-01-23T21:01:27'
+        amp:
+          type: boolean
+          example: true
+        additionalEquipment:
+          type: array
+          items: {}
+
+    AdditionalService:
+      type: object
+      required:
+        - code
+        - price
+        - saleType
+      properties:
+        code:
+          type: string
+          example: '00000020'
+        price:
+          type: integer
+          example: 168000
+        saleType:
+          type: string
+          example: 'AGREEMENT'
+        comment:
+          type: string
+          example: ''
+
+    Contragent:
+      type: object
+      required:
+        - iin
+        - birthdate
+        - address
+        - clientLanguage
+        - gender
+        - document
+        - firstName
+        - lastName
+        - middleName
+        - phone
+        - isBusiness
+        - countryCode
+        - email
+      properties:
+        document:
+          $ref: '#/components/schemas/ContragentDocument'
+        iin:
+          type: string
+          example: '830622301914'
+        birthdate:
+          type: string
+          format: date
+          example: '1983-06-22'
+        address:
+          type: string
+          example: 'Алматинская область Енбекшиказахский район Рахатский с.о. Арычная 7А'
+        clientLanguage:
+          type: string
+          example: 'RU'
+        gender:
+          type: string
+          example: 'M'
+        firstName:
+          type: string
+          example: 'Дәурен'
+        lastName:
+          type: string
+          example: 'Айтбаев'
+        middleName:
+          type: string
+          example: 'Қанатұлы'
+        phone:
+          type: string
+          example: '77009752107'
+        countryCode:
+          type: string
+          example: 'KAZ'
+        email:
+          type: string
+          example: null
+        registrationCountry:
+          type: string
+          example: 'Казахстан'
+        isBusiness:
+          type: boolean
+          example: false
+
+    WorkListCar:
+      type: object
+      required:
+        - VIN
+        - oneCId
+      properties:
+        oneCId:
+          type: string
+          example: '291796'
+        VIN:
+          type: string
+          example: 'JTEHT05J902106751'
+
+    Payment:
+      type: object
+      required:
+        - prepaymentPercentage
+        - prepaymentAmount
+        - saleType
+        - creditBankBin
+        - interestRate
+        - creditTerm
+        - creditAmount
+        - creditProgramId
+      properties:
+        prepaymentPercentage:
+          type: number
+          format: float
+          example: 20.33433
+        prepaymentAmount:
+          type: integer
+          example: 2043600
+        saleType:
+          type: string
+          example: 'Кредит'
+        creditAmount:
+          type: integer
+          example: 8174400
+        creditTerm:
+          type: integer
+          example: 84
+        creditProgramId:
+          type: string
+          example: '00000102'
+
+    Discounts:
+      type: object
+      required:
+        - manual
+        - tradeIn
+        - salesSupport
+        - rehandling
+        - overprice
+        - bonusTotal
+        - partnerBank
+        - shippingServices
+        - rehandlingOverprice
+      properties:
+        manual:
+          type: integer
+          example: 0
+        tradeIn:
+          type: integer
+          example: 0
+        salesSupport:
+          type: integer
+          example: 0
+        rehandling:
+          type: integer
+          example: 0
+        partnerBank:
+          type: integer
+          example: 0
+        bonusTotal:
+          type: integer
+          example: 0
+        shippingServices:
+          type: integer
+          example: 0
+    
+    WorkListUpdate:
+      type: object
+      properties:
+        sppIssueCheck:
+          type: string
+          nullable: true
+          example: null
+        setStatus:
+          type: string
+          example: "sale"
+        comment:
+          type: string
+          example: ""
+        code:
+          type: string
+          nullable: true
+          example: null
+        id:
+          type: string
+          example: "785044"
+    
+    WorkListNewBill:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "274762"
+        sum:
+          type: integer
+          example: 8940000
+      
+    WorkListUsedCarSale:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "784583"
+        setStatus:
+          type: string
+          example: "sale"
+      
+    WorkListWheelsDocs:
+      type: object
+      properties:
+        workListNumber:
+          type: string
+          example: "816"
+        docType:
+          type: string
+          enum: [invoice, receipt, contract, report]
+          example: "invoice"
+        docFormat:
+          type: string
+          enum: [PDF, DOCX, XLSX]
+          example: "PDF"
+        signerIin:
+          type: string
+          example: "030815501275"
+    
+    Rim:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "486"
+        price:
+          type: string
+          example: "null"
+        radius:
+          type: string
+          example: "16.0"
+        material:
+          type: string
+          example: "Железный"
+
+    WorkListWheelsPurchaseClient:
+      type: object
+      properties:
+        isBusiness:
+          type: boolean
+          example: false
+        iin:
+          type: string
+          example: "850131312395"
+        firstName:
+          type: string
+          example: "Иван"
+        lastName:
+          type: string
+          example: "Иванов"
+        middleName:
+          type: string
+          example: "Иванович"
+        gender:
+          type: string
+          example: "M"
+        language:
+          type: string
+          example: "RU"
+        birthdate:
+          type: string
+          format: date
+          example: "1985-01-31"
+        phone:
+          type: string
+          example: "77011234854"
+        email:
+          type: string
+          example: ""
+        countryCode:
+          type: string
+          example: ""
+        address:
+          type: object
+          properties:
+            postAddress:
+              type: string
+              example: "Жамбыл облысы Шу ауданы Көктөбе ауылы Галиакпаров көшесі 584"
+
+    WorkListWheelsPurchase:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2025-01-23T19:40:25"
+        id:
+          type: string
+          example: "995"
+        ampWorkListId:
+          type: string
+          example: "387478"
+        tyreSet:
+          $ref: "#/components/schemas/WorkListWheelsPurchaseTyreSet"
+        tyres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tyre"
+        rims:
+          type: array
+          items:
+            $ref: "#/components/schemas/Rim"
+        organizationBin:
+          type: string
+          example: "100240002747"
+        client:
+          $ref: "#/components/schemas/WorkListWheelsPurchaseClient"
+        managerIin:
+          type: string
+          example: "921108301664"
+        storekeeperIin:
+          type: string
+          example: "951208300388"
+        warehouseId:
+          type: string
+          example: "000000960"
+
+    WorkListWheelsPurchaseTyreSet:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1563"
+        price:
+          type: string
+          example: "40000"
+        mark:
+          type: string
+          example: "424"
+        model:
+          type: string
+          example: "7513"
+        country:
+          type: string
+          example: "Китай"
+        radius:
+          type: string
+          example: "16.0"
+        width:
+          type: string
+          example: "205.0"
+        height:
+          type: string
+          example: "55.0"
+        year:
+          type: string
+          example: "2020"
+        week:
+          type: string
+          example: "33"
+        average_wear:
+          type: string
+          example: "46.0"
+        average_tread_depth:
+          type: string
+          example: "6.74"
+        set_amount:
+          type: string
+          example: "4"
+        season:
+          type: string
+          example: "Зима липучка"
+        storageLevel1:
+          type: string
+          example: "10"
+        storageLevel2:
+          type: string
+          example: "5"
+        storageLevel3:
+          type: string
+          example: "38"
+    
+    WorkListWheelsSaleClient:
+      type: object
+      properties:
+        isBusiness:
+          type: boolean
+          example: false
+        firstName:
+          type: string
+          example: "Иван"
+        lastName:
+          type: string
+          example: "Иванов"
+        middleName:
+          type: string
+          example: ""
+        phone:
+          type: string
+          example: "7011234445"
+        email:
+          type: string
+          example: "test@gmail.com"
+        countryCode:
+          type: string
+          example: ""
+        name:
+          type: string
+          example: ""
+        fullName:
+          type: string
+          example: ""
+
+    WorkListWheelsSaleTyreSet:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1563"
+        price:
+          type: string
+          example: "40000"
+
+    WorkListWheelsSale:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2025-01-23T20:10:19"
+        id:
+          type: string
+          example: "816"
+        payId:
+          type: string
+          example: "989"
+        tyreSet:
+          $ref: "#/components/schemas/WorkListWheelsSaleTyreSet"
+        client:
+          $ref: "#/components/schemas/WorkListWheelsSaleClient"
+        warehouseId:
+          type: string
+          example: "000000960"
