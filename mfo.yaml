@@ -99,7 +99,21 @@ components:
           description: 'Срок заема'
           type: integer
           example: "60"
-
+        loanPurposeId:
+          description: "Идентификатор цели кредитования (код элемента из 1С:МФО)"
+          type: string
+          example: "000000001"
+          minLength: 10
+          maxLength: 10
+        clientConsentId:
+          description: |
+            Согласие клиента (поле заявки на микрокредит).<br>
+            0 - Не задано<br>
+            1 - Согласие<br>
+            2 - Отказ<br>
+          type: integer
+          example: "60"
+        
     Car:
       type: object
       required:
