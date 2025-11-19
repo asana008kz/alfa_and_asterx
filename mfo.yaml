@@ -48,8 +48,6 @@ paths:
                   message:
                     type: string
                     example: ""
-                  data:
-                    $ref: '#/components/schemas/AMPEstimateResponseData'
         '400':
           description: ""
           content:
@@ -72,6 +70,12 @@ components:
           type: string
           format: date-time
           example: "2025-01-22T20:50:43"
+        borrower:
+          $ref: '#/components/schemas/Contragent'
+        managerIIN:
+          description: "ИИН кредитного менеджера"
+          type: string
+          example: "951109400079"
 
     Car:
       type: object
@@ -208,37 +212,6 @@ components:
           type: string
           example: "МВД РК"
 
-    AMPEstimateResponseData:
-      type: object
-      properties:
-        redemptionWorkListUuid:
-          type: string
-          format: uuid
-          example: "3771ac9a-d99f-11ef-9a2a-00155d29c505"
-        carReceiptUuid:
-          type: string
-          format: uuid
-          example: "3771b485-d99f-11ef-9a2a-00155d29c505"
-        carAppraisalUuid:
-          type: string
-          format: uuid
-          example: "3d0af86c-d99f-11ef-9a2a-00155d29c505"
-        carUuid:
-          type: string
-          format: uuid
-          example: "04b7157f-d967-11ef-9a2a-00155d29c505"
-        contragentUUID:
-          type: string
-          format: uuid
-          example: "237c6bcc-d8b5-11ef-9a2a-00155d29c505"
-        agreementUuid:
-          type: string
-          format: uuid
-          example: "3771b106-d99f-11ef-9a2a-00155d29c505"
-        agreementNumber:
-          type: string
-          example: "000174513"
-          
     ErrorResponseAPI:
       type: object
       properties:
