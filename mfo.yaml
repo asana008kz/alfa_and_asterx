@@ -82,8 +82,6 @@ components:
         plateNumber:
           type: string
           example: "959JAA01"
-        techPassport:
-          $ref: '#/components/schemas/TechPassport'
         organizationBin:
           type: string
           example: "210440014621"
@@ -180,20 +178,6 @@ components:
           type: string
           example: "?"
     
-    TechPassport:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date-time
-          example: "2019-11-20T00:00:00"
-        number:
-          type: string
-          example: "00438860"
-        series:
-          type: string
-          example: "ZJ"
-
     Client:
       type: object
       properties:
@@ -272,48 +256,6 @@ components:
         issuedAuthority:
           type: string
           example: "МВД РК"
-
-    Person:
-      type: object
-      properties:
-        isBusiness:
-          type: boolean
-          example: false
-        iin:
-          type: string
-          example: "760508401440"
-        firstName:
-          type: string
-          example: "Евгения"
-        lastName:
-          type: string
-          example: "Боженко"
-        middleName:
-          type: string
-          example: "Валерьевна"
-        gender:
-          type: string
-          example: "F"
-        birthdate:
-          type: string
-          format: date-time
-          example: "0001-01-01T00:00:00"
-        phone:
-          type: string
-          example: "+7 (777) 244-49-27"
-        language:
-          type: string
-          example: "RU"
-        address:
-          type: object
-          additionalProperties: true
-        payer:
-          type: boolean
-          example: true
-        uuid:
-          type: string
-          format: uuid
-          example: "3ade22b5-02b6-11ea-80dc-ac1f6b97462f"
 
     AMPEstimateResponseData:
       type: object
