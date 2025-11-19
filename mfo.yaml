@@ -1,0 +1,436 @@
+openapi: 3.0.3
+info:
+  title: "1С:Микрофинансовая организация"
+  description: |-
+    Описание API
+  version: kz
+servers:
+  - url: https://unknown.kz
+
+paths:
+  /ping:
+    get:
+      tags:
+        - Ping
+      summary: Тестирование связи
+      description: Подробное описание
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+        
+  /loan:
+    post:
+      tags:
+        - Заявки на кредит
+      summary: Сервис работы с заявками на микрокредит
+      description: Подробное описание
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: '#/components/schemas/AMPEstimateResponseData'
+        '400':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseAPI'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # Optional, but helps document expected token type
+  schemas:
+    Loan:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
+        id:
+          type: string
+          example: "425212"
+        car:
+          $ref: '#/components/schemas/Car'
+        keyCount:
+          type: integer
+          example: 1
+        plateNumber:
+          type: string
+          example: "959JAA01"
+        techPassport:
+          $ref: '#/components/schemas/TechPassport'
+        organizationBin:
+          type: string
+          example: "210440014621"
+        receiptTypeOfUsedCar:
+          type: string
+          example: "26"
+        RRC:
+          type: integer
+          example: 11110000
+        planSalePrice:
+          type: integer
+          example: 10710000
+        client:
+          $ref: '#/components/schemas/Client'
+        managerIin:
+          type: string
+          example: "990802300976"
+        ossManagerIin:
+          type: string
+          example: "001220601086"
+        damages:
+          type: array
+          items:
+            type: object
+        divisionCode:
+          type: string
+          example: "110"
+        finalPrice:
+          type: integer
+          example: 9000000
+        contractPrice:
+          type: integer
+          example: 9000000
+        willBeFixedParts:
+          type: integer
+          example: 39000
+        willBeFixedLabor:
+          type: integer
+          example: 59000
+
+    Car:
+      type: object
+      required:
+        - vin
+        - markaId
+        - modelId
+        - variantId
+        - year
+        - mileage
+      properties:
+        vin:
+          type: string
+          example: "Z8NFBAJ11ES089400"
+        markaId:
+          type: integer
+          example: 97
+        modelId:
+          type: integer
+          example: 1030
+        variantId:
+          type: integer
+          example: 14199
+        year:
+          type: integer
+          example: 2019
+        bodyTypeId:
+          type: string
+          example: "6"
+        dwheelType:
+          type: string
+          example: "Передний"
+        transmissionId:
+          type: string
+          example: "1"
+        engineVolume:
+          type: string
+          example: "1997"
+        engineTypeId:
+          type: string
+          example: "1"
+        color:
+          type: string
+          example: "Белый"
+        mileage:
+          type: integer
+          example: 58371
+        interiorMaterials:
+          type: string
+          example: "Темный"
+        steering:
+          type: string
+          example: "1"
+        engineNumber:
+          type: string
+          example: "?"
+    
+    TechPassport:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          example: "2019-11-20T00:00:00"
+        number:
+          type: string
+          example: "00438860"
+        series:
+          type: string
+          example: "ZJ"
+
+    Client:
+      type: object
+      properties:
+        isBusiness:
+          type: boolean
+          example: false
+        iin:
+          type: string
+          example: "951109400079"
+        lastName:
+          type: string
+          example: "ИВАНОВА"
+        firstName:
+          type: string
+          example: "ИВАНКА"
+        middleName:
+          type: string
+          example: "ИВАНОВНА"
+        gender:
+          type: string
+          example: "F"
+        birthdate:
+          type: string
+          format: date
+          example: "1984-11-10"
+        language:
+          type: string
+          example: "RU"
+        phone:
+          type: string
+          example: "77011237717"
+        email:
+          type: string
+          example: ""
+        address:
+          $ref: '#/components/schemas/Address'
+        document:
+          $ref: '#/components/schemas/ContragentDocument'
+        name:
+          type: string
+          example: ""
+        fullName:
+          type: string
+          example: ""
+
+    Address:
+      type: object
+      properties:
+        postAddress:
+          type: string
+          example: "г.Алматы Медеуский район Хоружей 75"
+
+    ContragentDocument:
+      type: object
+      required:
+        - number
+        - issuedAuthority
+        - documentType
+        - series
+        - dateOfIssue
+        - dateOfExpiration
+      properties:
+        documentType:
+          type: string
+          example: "Удостоверение личности РК"
+        series:
+          type: string
+          example: ""
+        number:
+          type: string
+          example: "042555774"
+        dateOfIssue:
+          type: string
+          format: date
+          example: "2017-04-07"
+        issuedAuthority:
+          type: string
+          example: "МВД РК"
+
+    Person:
+      type: object
+      properties:
+        isBusiness:
+          type: boolean
+          example: false
+        iin:
+          type: string
+          example: "760508401440"
+        firstName:
+          type: string
+          example: "Евгения"
+        lastName:
+          type: string
+          example: "Боженко"
+        middleName:
+          type: string
+          example: "Валерьевна"
+        gender:
+          type: string
+          example: "F"
+        birthdate:
+          type: string
+          format: date-time
+          example: "0001-01-01T00:00:00"
+        phone:
+          type: string
+          example: "+7 (777) 244-49-27"
+        language:
+          type: string
+          example: "RU"
+        address:
+          type: object
+          additionalProperties: true
+        payer:
+          type: boolean
+          example: true
+        uuid:
+          type: string
+          format: uuid
+          example: "3ade22b5-02b6-11ea-80dc-ac1f6b97462f"
+
+    Receiver:
+      type: object
+      properties:
+        iin:
+          type: string
+          example: "980716301281"
+
+    Author:
+      type: object
+      properties:
+        iin:
+          type: string
+          example: "011030500685"
+    
+    AMPEstimateResponseData:
+      type: object
+      properties:
+        redemptionWorkListUuid:
+          type: string
+          format: uuid
+          example: "3771ac9a-d99f-11ef-9a2a-00155d29c505"
+        carReceiptUuid:
+          type: string
+          format: uuid
+          example: "3771b485-d99f-11ef-9a2a-00155d29c505"
+        carAppraisalUuid:
+          type: string
+          format: uuid
+          example: "3d0af86c-d99f-11ef-9a2a-00155d29c505"
+        carUuid:
+          type: string
+          format: uuid
+          example: "04b7157f-d967-11ef-9a2a-00155d29c505"
+        contragentUUID:
+          type: string
+          format: uuid
+          example: "237c6bcc-d8b5-11ef-9a2a-00155d29c505"
+        agreementUuid:
+          type: string
+          format: uuid
+          example: "3771b106-d99f-11ef-9a2a-00155d29c505"
+        agreementNumber:
+          type: string
+          example: "000174513"
+          
+    ErrorResponseAPI:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Неверный формат данных: (Описание ошибки)"
+        data:
+          type: string
+          example: ""
+  
+    Contragent:
+      type: object
+      required:
+        - iin
+        - birthdate
+        - address
+        - clientLanguage
+        - gender
+        - document
+        - firstName
+        - lastName
+        - middleName
+        - phone
+        - isBusiness
+        - countryCode
+        - email
+      properties:
+        document:
+          $ref: '#/components/schemas/ContragentDocument'
+        iin:
+          type: string
+          example: '830622301914'
+        birthdate:
+          type: string
+          format: date
+          example: '1983-06-22'
+        address:
+          type: string
+          example: 'Алматинская область Енбекшиказахский район Рахатский с.о. Арычная 7А'
+        clientLanguage:
+          type: string
+          example: 'RU'
+        gender:
+          type: string
+          example: 'M'
+        firstName:
+          type: string
+          example: 'Дәурен'
+        lastName:
+          type: string
+          example: 'Айтбаев'
+        middleName:
+          type: string
+          example: 'Қанатұлы'
+        phone:
+          type: string
+          example: '77009752107'
+        countryCode:
+          type: string
+          example: 'KAZ'
+        email:
+          type: string
+          example: null
+        registrationCountry:
+          type: string
+          example: 'Казахстан'
+        isBusiness:
+          type: boolean
+          example: false
+
+    
