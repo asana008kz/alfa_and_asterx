@@ -315,20 +315,6 @@ components:
           format: uuid
           example: "3ade22b5-02b6-11ea-80dc-ac1f6b97462f"
 
-    Receiver:
-      type: object
-      properties:
-        iin:
-          type: string
-          example: "980716301281"
-
-    Author:
-      type: object
-      properties:
-        iin:
-          type: string
-          example: "011030500685"
-    
     AMPEstimateResponseData:
       type: object
       properties:
