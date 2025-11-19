@@ -24,8 +24,8 @@ paths:
     post:
       tags:
         - Заявки на кредит
-      summary: Сервис работы с заявками на микрокредит
-      description: Подробное описание
+      summary: Сервис для работы с заявками на микрокредит
+      description: Создает ФизЛицо, Контрагента, Залог и Заявку
       requestBody:
         required: true
         description: Описание для JSON
@@ -68,59 +68,10 @@ components:
       type: object
       properties:
         date:
+          description: "Дата заявки на получение микрокредита"
           type: string
           format: date-time
           example: "2025-01-22T20:50:43"
-        id:
-          type: string
-          example: "425212"
-        car:
-          $ref: '#/components/schemas/Car'
-        keyCount:
-          type: integer
-          example: 1
-        plateNumber:
-          type: string
-          example: "959JAA01"
-        organizationBin:
-          type: string
-          example: "210440014621"
-        receiptTypeOfUsedCar:
-          type: string
-          example: "26"
-        RRC:
-          type: integer
-          example: 11110000
-        planSalePrice:
-          type: integer
-          example: 10710000
-        client:
-          $ref: '#/components/schemas/Client'
-        managerIin:
-          type: string
-          example: "990802300976"
-        ossManagerIin:
-          type: string
-          example: "001220601086"
-        damages:
-          type: array
-          items:
-            type: object
-        divisionCode:
-          type: string
-          example: "110"
-        finalPrice:
-          type: integer
-          example: 9000000
-        contractPrice:
-          type: integer
-          example: 9000000
-        willBeFixedParts:
-          type: integer
-          example: 39000
-        willBeFixedLabor:
-          type: integer
-          example: 59000
 
     Car:
       type: object
