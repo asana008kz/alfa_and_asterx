@@ -76,6 +76,29 @@ components:
           description: "ИИН кредитного менеджера"
           type: string
           example: "951109400079"
+          minLength: 13
+          maxLength: 13
+        creditProductId:
+          description: "Идентификатор кредитного продукта (код элемента из 1С:МФО)"
+          type: string
+          example: "000000001"
+          minLength: 10
+          maxLength: 10
+        amount:
+          type: number
+          format: double
+          description: 'Сумма заема'
+          example: "3 000 000.00"
+        currencyId:
+          description: 'Код валюты по справочнику 1С:МФО'
+          type: string
+          example: "398"
+          minLength: 3
+          maxLength: 3
+        loanTerm:
+          description: 'Срок заема'
+          type: integer
+          example: "60"
 
     Car:
       type: object
