@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: "1С:Микрофинансовая организация"
   description: |-
-    Описание API
+    Сервис микрокредитования
   version: kz
 servers:
   - url: https://unknown.kz
@@ -235,19 +235,35 @@ components:
         documentType:
           type: string
           example: "Удостоверение личности РК"
+          minLength: 1
+          maxLength: 100
+          description: "Тип документа"
         series:
           type: string
           example: ""
+          minLength: 0
+          maxLength: 100
+          description: "Серия документа"
         number:
           type: string
           example: "042555774"
+          minLength: 1
+          maxLength: 30
+          description: "Номер документа"
         dateOfIssue:
           type: string
           format: date
           example: "2017-04-07"
+          description: "Дата выпуска документа"
+        dateOfExpiration:
+          type: string
+          format: date
+          example: "2017-04-07"
+          description: "Дата истечения срока действия документа"
         issuedAuthority:
           type: string
           example: "МВД РК"
+          description: "Ведомство выдавшее документ"
 
     ErrorResponseAPI:
       type: object
