@@ -172,51 +172,6 @@ components:
           type: string
           example: "?"
     
-    Client:
-      type: object
-      properties:
-        isBusiness:
-          type: boolean
-          example: false
-        iin:
-          type: string
-          example: "951109400079"
-        lastName:
-          type: string
-          example: "ИВАНОВА"
-        firstName:
-          type: string
-          example: "ИВАНКА"
-        middleName:
-          type: string
-          example: "ИВАНОВНА"
-        gender:
-          type: string
-          example: "F"
-        birthdate:
-          type: string
-          format: date
-          example: "1984-11-10"
-        language:
-          type: string
-          example: "RU"
-        phone:
-          type: string
-          example: "77011237717"
-        email:
-          type: string
-          example: ""
-        address:
-          $ref: '#/components/schemas/Address'
-        document:
-          $ref: '#/components/schemas/ContragentDocument'
-        name:
-          type: string
-          example: ""
-        fullName:
-          type: string
-          example: ""
-
     Address:
       type: object
       properties:
@@ -226,6 +181,9 @@ components:
 
     ContragentDocument:
       type: object
+      description: |
+          Документ идентификации личности
+          (удостоверение, паспорт и т. д.)
       required:
         - number
         - issuedAuthority
@@ -302,42 +260,55 @@ components:
         iin:
           type: string
           example: '830622301914'
+          description: "ИИН"
         birthdate:
           type: string
           format: date
           example: '1983-06-22'
+          description: "Дата рождения"
         address:
           type: string
           example: 'Алматинская область Енбекшиказахский район Рахатский с.о. Арычная 7А'
+          description: "Адрес"
         clientLanguage:
           type: string
           example: 'RU'
+          description: "Язык"
         gender:
           type: string
           example: 'M'
+          description: "Пол"
         firstName:
           type: string
           example: 'Дәурен'
+          description: "Имя"
         lastName:
           type: string
           example: 'Айтбаев'
+          description: "Фамилия"
         middleName:
           type: string
           example: 'Қанатұлы'
+          description: "Отчество"
         phone:
           type: string
           example: '77009752107'
+          description: "Номер телефона"
         countryCode:
           type: string
           example: 'KAZ'
+          description: "Код страны"
         email:
           type: string
           example: null
+          description: "Адрес электронной почты"
         registrationCountry:
           type: string
           example: 'Казахстан'
+          description: "Наименование страны регистрации"
         isBusiness:
           type: boolean
           example: false
+          description: "Это юридическое лицо?"
 
     
