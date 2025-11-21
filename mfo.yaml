@@ -129,48 +129,63 @@ components:
         vin:
           type: string
           example: "Z8NFBAJ11ES089400"
+          description: "VIN"
         markaId:
           type: integer
           example: 97
+          description: "Идентификатор марки"
         modelId:
           type: integer
           example: 1030
+          description: "Идентификатор модели"
         variantId:
           type: integer
           example: 14199
+          description: "код варианта"
         year:
           type: integer
           example: 2019
+          description: "Год выпуска"
         bodyTypeId:
           type: string
           example: "6"
+          description: "Тип кузова"
         dwheelType:
           type: string
           example: "Передний"
+          description: "Тип привода"
         transmissionId:
           type: string
           example: "1"
+          description: "Код трансмиссии"
         engineVolume:
           type: string
           example: "1997"
+          description: "Объем двигателя"
         engineTypeId:
           type: string
           example: "1"
+          description: "Идентификатор типа двигателя"
         color:
           type: string
           example: "Белый"
+          description: "Наименование цвета"
         mileage:
           type: integer
           example: 58371
+          description: "Пробег"
         interiorMaterials:
           type: string
           example: "Темный"
+          description: "Материалы салона"
         steering:
           type: string
           example: "1"
+          description: "Расположение руля"
         engineNumber:
           type: string
           example: "?"
+          description: "Номер двигателя"
     
     Address:
       type: object
