@@ -112,6 +112,8 @@ components:
           example: "60"
         car:
           $ref: '#/components/schemas/Car'
+        guarantor:
+          $ref: '#/components/schemas/ContragentDocument'
         status:
           type: string
           description: "Статус"
