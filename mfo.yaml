@@ -20,7 +20,7 @@ paths:
         '200':
           description: Successful operation
         
-  /loan:
+  /leads:
     post:
       tags:
         - Заявки на кредит
