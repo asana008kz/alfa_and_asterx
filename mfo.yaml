@@ -41,13 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                properties:
-                  status:
-                    type: string
-                    example: "success"
-                  message:
-                    type: string
-                    example: ""
+                $ref: '#/components/schemas/SuccessResponseAPI'
         '400':
           description: ""
           content:
@@ -70,6 +64,9 @@ components:
           type: string
           format: date-time
           example: "2025-01-22T20:50:43"
+        creditPipelineNumber:
+          type: string
+          description: "Номер заявки в КК"
         borrower:
           $ref: '#/components/schemas/Contragent'
         managerIIN:
@@ -115,6 +112,9 @@ components:
           example: "60"
         car:
           $ref: '#/components/schemas/Car'
+        status:
+          type: string
+          description: "Статус"
         
     Car:
       type: object
@@ -240,19 +240,6 @@ components:
           example: "МВД РК"
           description: "Ведомство выдавшее документ"
 
-    ErrorResponseAPI:
-      type: object
-      properties:
-        status:
-          type: string
-          example: "error"
-        message:
-          type: string
-          example: "Неверный формат данных: (Описание ошибки)"
-        data:
-          type: string
-          example: ""
-  
     Contragent:
       type: object
       required:
@@ -326,4 +313,52 @@ components:
           example: false
           description: "Это юридическое лицо?"
 
+    SuccessResponseAPI:
+      type: object
+      properties:
+        result:
+          type: string
+          example: "ok"
+          description: "Краткое и емкое описание результата выполнения запроса"
+        loanAgreementNumer:
+          type: string
+          example: "????"
+          description: "Номер договора кредита"
+        loanAgreementDate:
+          type: string
+          example: "????"
+          description: "Дата договора кредита"
+        pledgeAgreementNumer:
+          type: string
+          example: "????"
+          description: "Номер договора залога"
+        pledgeAgreementDate:
+          type: string
+          example: "????"
+          description: "Дата договора залога"
+        insuranceContractNumber:
+          type: string
+          example: "????"
+          description: "Номер договора КАСКО"
+        insuranceContractDate:
+          type: string
+          example: "????"
+          description: "Дата договора КАСКО"
+        data:
+          type: string
+          example: ""
+  
+    ErrorResponseAPI:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+        message:
+          type: string
+          example: "Неверный формат данных: (Описание ошибки)"
+        data:
+          type: string
+          example: ""
+  
     
