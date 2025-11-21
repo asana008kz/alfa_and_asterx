@@ -113,6 +113,8 @@ components:
             2 - Отказ<br>
           type: integer
           example: "60"
+        car:
+          $ref: '#/components/schemas/Car'
         
     Car:
       type: object
