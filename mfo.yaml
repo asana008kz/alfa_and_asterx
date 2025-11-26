@@ -43,7 +43,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuccessResponseAPI'
         '400':
-          description: ""
+          description: "Пока не понятно отвечать просто строкой или JSON"
           content:
             application/json:
               schema:
