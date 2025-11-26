@@ -66,6 +66,7 @@ components:
           example: "2025-01-22T20:50:43"
         creditPipelineNumber:
           type: string
+          example: "12345"
           description: "Номер заявки в КК"
         borrower:
           $ref: '#/components/schemas/Contragent'
