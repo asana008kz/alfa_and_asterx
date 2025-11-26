@@ -258,7 +258,7 @@ components:
         - lastName
         - middleName
         - phone
-        - isBusiness
+        - registrationCountry
         - countryCode
         - email
       properties:
