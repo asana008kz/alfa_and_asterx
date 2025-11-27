@@ -126,9 +126,9 @@ components:
       type: object
       required:
         - vin
-        - markaId
-        - modelId
-        - variantId
+        - marka
+        - model
+        - variant
         - year
         - mileage
       properties:
@@ -136,23 +136,23 @@ components:
           type: string
           example: "Z8NFBAJ11ES089400"
           description: "VIN"
-        markaId:
-          type: integer
-          example: 97
-          description: "Идентификатор марки"
-        modelId:
-          type: integer
-          example: 1030
-          description: "Идентификатор модели"
-        variantId:
-          type: integer
-          example: 14199
-          description: "код варианта"
+        marka:
+          type: string
+          example: "Lada"
+          description: "Марка"
+        model:
+          type: string
+          example: "Priora"
+          description: "Мдель"
+        variant:
+          type: string
+          example: "Вариант"
+          description: "Вариант"
         year:
           type: integer
           example: 2019
           description: "Год выпуска"
-        bodyTypeId:
+        bodyType:
           type: string
           example: "6"
           description: "Тип кузова"
@@ -160,18 +160,18 @@ components:
           type: string
           example: "Передний"
           description: "Тип привода"
-        transmissionId:
+        transmission:
           type: string
           example: "1"
-          description: "Код трансмиссии"
+          description: "Трансмиссия"
         engineVolume:
           type: string
           example: "1997"
           description: "Объем двигателя"
-        engineTypeId:
+        engineType:
           type: string
           example: "1"
-          description: "Идентификатор типа двигателя"
+          description: "Тип двигателя"
         color:
           type: string
           example: "Белый"
@@ -190,16 +190,9 @@ components:
           description: "Расположение руля"
         engineNumber:
           type: string
-          example: "?"
+          example: "123456"
           description: "Номер двигателя"
     
-    Address:
-      type: object
-      properties:
-        postAddress:
-          type: string
-          example: "г.Алматы Медеуский район Хоружей 75"
-
     ContragentDocument:
       type: object
       description: |
