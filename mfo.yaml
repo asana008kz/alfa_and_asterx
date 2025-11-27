@@ -77,8 +77,8 @@ components:
           description: "ИИН кредитного менеджера"
           type: string
           example: "951109400079"
-          minLength: 13
-          maxLength: 13
+          minLength: 12
+          maxLength: 12
         creditProductId:
           description: "Идентификатор кредитного продукта (код элемента из 1С:МФО)"
           type: string
@@ -262,6 +262,8 @@ components:
           type: string
           example: '830622301914'
           description: "ИИН"
+          minLength: 12
+          maxLength: 12
         birthdate:
           type: string
           format: date
