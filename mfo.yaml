@@ -120,7 +120,14 @@ components:
           $ref: '#/components/schemas/Contragent'
         status:
           type: string
-          description: "Статус"
+          description: |
+            1) loan - Заявление
+            2) cancel - Отказ от займа
+            3) contract - Кредитное соглашение
+            4) completed - Выдача займа
+          example: "loan"
+          minLength: 1
+          maxLength: 40
         
     Car:
       type: object
