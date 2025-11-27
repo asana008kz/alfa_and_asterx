@@ -307,10 +307,6 @@ components:
           type: string
           example: 'Казахстан'
           description: "Наименование страны регистрации"
-        isBusiness:
-          type: boolean
-          example: false
-          description: "Это юридическое лицо?"
 
     SuccessResponseAPI:
       type: object
