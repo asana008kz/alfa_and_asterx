@@ -271,7 +271,6 @@ components:
           description: "Дата рождения"
         birthPlace:
           type: string
-          format: date
           example: 'РК'
           description: "Место рождения"
         address:
