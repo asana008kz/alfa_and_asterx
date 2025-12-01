@@ -243,6 +243,7 @@ components:
       required:
         - iin
         - birthdate
+        - birthPlace
         - address
         - clientLanguage
         - gender
@@ -268,6 +269,11 @@ components:
           format: date
           example: '1983-06-22'
           description: "Дата рождения"
+        birthPlace:
+          type: string
+          format: date
+          example: 'РК'
+          description: "Место рождения"
         address:
           type: string
           example: 'Алматинская область Енбекшиказахский район Рахатский с.о. Арычная 7А'
