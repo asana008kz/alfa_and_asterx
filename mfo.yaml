@@ -360,8 +360,4 @@ components:
           format: date
           example: '1983-06-22'
           description: "Дата договора КАСКО"
-        data:
-          type: string
-          example: ""
-  
     
