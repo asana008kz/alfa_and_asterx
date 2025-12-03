@@ -41,11 +41,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuccessResponseAPI'
         '400':
-          description: "Пока не понятно отвечать просто строкой или JSON"
+          description: "Текстовая ошибка"
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: '#/components/schemas/ErrorResponseAPI'
+                type: string
+                example: |
+                  Ошибка чтения сущности "ЗаявкаНаКредит"
+                  	Ошибка чтения поля "borrower"
+                  		Ошибка чтения сущности "Клиент"
+                  			Ошибка чтения поля "iin"
+                  				Ошибки в значении ИИН 891211555666
+                  					Контрольное число для ИИН не совпадает с рассчитанным.
 
 # Глобальное применение схемы безопасности ко всем путям
 security:
@@ -317,47 +324,42 @@ components:
     SuccessResponseAPI:
       type: object
       properties:
-        result:
+        loanApplicationNumber:
           type: string
-          example: "ok"
-          description: "Краткое и емкое описание результата выполнения запроса"
+          example: "1-000000020"
+          description: "Номер заявления на получение кредита"
+        loanApplicationDate:
+          type: string
+          format: date
+          example: '1983-06-22'
+          description: "Дата заявления на получение кредита"
         loanAgreementNumer:
           type: string
-          example: "????"
+          example: "1-000000020"
           description: "Номер договора кредита"
         loanAgreementDate:
           type: string
-          example: "????"
+          format: date
+          example: '1983-06-22'
           description: "Дата договора кредита"
         pledgeAgreementNumer:
           type: string
-          example: "????"
+          example: "1-000000020"
           description: "Номер договора залога"
         pledgeAgreementDate:
           type: string
-          example: "????"
+          format: date
+          example: '1983-06-22'
           description: "Дата договора залога"
         insuranceContractNumber:
           type: string
-          example: "????"
+          example: "1-000000020"
           description: "Номер договора КАСКО"
         insuranceContractDate:
           type: string
-          example: "????"
+          format: date
+          example: '1983-06-22'
           description: "Дата договора КАСКО"
-        data:
-          type: string
-          example: ""
-  
-    ErrorResponseAPI:
-      type: object
-      properties:
-        status:
-          type: string
-          example: "error"
-        message:
-          type: string
-          example: "Неверный формат данных: (Описание ошибки)"
         data:
           type: string
           example: ""
