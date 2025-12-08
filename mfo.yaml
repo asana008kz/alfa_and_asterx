@@ -113,8 +113,6 @@ components:
           example: "000000001"
           minLength: 10
           maxLength: 10
-        car:
-          $ref: '#/components/schemas/Car'
         loanСollateralCost:
           type: number
           format: double
@@ -142,7 +140,8 @@ components:
           maxLength: 40
         guaranteeObligation:
           $ref: '#/components/schemas/GuaranteeObligation'
-        
+        pledge:
+          $ref: '#/components/schemas/Pledge'
     GuaranteeObligation:
       type: object
       properties:
@@ -155,6 +154,26 @@ components:
           example: "5 000 000.00"
         warrantyPeriod:
           description: "Срок действия гарантии"
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
+    Pledge:
+      type: object
+      properties:
+        car:
+          $ref: '#/components/schemas/Car'
+        estimatedValue:
+          type: number
+          format: double
+          description: 'Оценочная стоимость'
+          example: "5 000 000.00"
+        collateralValue:
+          type: number
+          format: double
+          description: 'Залоговая стоимость'
+          example: "5 000 000.00"
+        pledgePeriod:
+          description: "Срок действия залога"
           type: string
           format: date-time
           example: "2025-01-22T20:50:43"
