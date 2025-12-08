@@ -140,8 +140,8 @@ components:
           maxLength: 40
         guaranteeObligation:
           $ref: '#/components/schemas/GuaranteeObligation'
-        pledge:
-          $ref: '#/components/schemas/Pledge'
+        collateral:
+          $ref: '#/components/schemas/Collateral'
     GuaranteeObligation:
       type: object
       properties:
@@ -157,7 +157,7 @@ components:
           type: string
           format: date-time
           example: "2025-01-22T20:50:43"
-    Pledge:
+    Collateral:
       type: object
       properties:
         car:
@@ -172,7 +172,7 @@ components:
           format: double
           description: 'Залоговая стоимость'
           example: "5 000 000.00"
-        pledgePeriod:
+        collateralPeriod:
           description: "Срок действия залога"
           type: string
           format: date-time
