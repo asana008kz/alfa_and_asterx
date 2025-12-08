@@ -128,7 +128,7 @@ components:
         downPaymentPercentage:
           type: number
           format: double
-          description: 'Процен первоначального взноса (если не заполнена сумма в downPayment)'
+          description: 'Процент первоначального взноса (если не заполнена сумма в downPayment)'
           example: "10.0%"
         status:
           type: string
