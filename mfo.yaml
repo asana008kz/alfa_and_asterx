@@ -391,11 +391,11 @@ components:
           format: date
           example: '1983-06-22'
           description: "Дата договора кредита"
-        pledgeAgreementNumer:
+        collateralAgreementNumer:
           type: string
           example: "1-000000020"
           description: "Номер договора залога"
-        pledgeAgreementDate:
+        collateralAgreementDate:
           type: string
           format: date
           example: '1983-06-22'
