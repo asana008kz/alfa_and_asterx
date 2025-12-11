@@ -5,7 +5,7 @@ info:
     Сервис микрокредитования
   version: kz
 servers:
-  - url: http://914f098f0c18.sn.mynetname.net:8081/1c_mfo/hs/
+  - url: http://127.0.0.1/1c_mfo/hs/
 
 paths:
   /leads/ping:
