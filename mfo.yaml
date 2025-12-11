@@ -61,6 +61,13 @@ paths:
       description: Меняет статус заявки на Отменен
       security:
         - basicAuth: []
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelLoan'
       responses:
         '200':
           description: Операция выполнена успешно
