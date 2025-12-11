@@ -54,6 +54,42 @@ paths:
                   				Ошибки в значении ИИН 891211555666
                   					Контрольное число для ИИН не совпадает с рассчитанным.
 
+    patch:
+      tags:
+        - Заявки на кредит
+      summary: Редактирует отдельные поля Заявки на кредит
+      description: Меняет статус заявки на Отменен
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelLoan'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponseAPI'
+        '400':
+          description: "Текстовая ошибка"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  Ошибка чтения сущности "ЗаявкаНаКредит"
+                  	Ошибка чтения поля "borrower"
+                  		Ошибка чтения сущности "Клиент"
+                  			Ошибка чтения поля "iin"
+                  				Ошибки в значении ИИН 891211555666
+                  					Контрольное число для ИИН не совпадает с рассчитанным.
+
+# 
 # Глобальное применение схемы безопасности ко всем путям
 security:
   - basicAuth: []
@@ -142,6 +178,28 @@ components:
           $ref: '#/components/schemas/GuaranteeObligation'
         collateral:
           $ref: '#/components/schemas/Collateral'
+    CancelLoan:
+      type: object
+      properties:
+        creditPipelineNumber:
+          type: string
+          minLength: 10
+          maxLength: 10
+          example: "12345"
+          description: "Номер заявки в КК"
+        refusalReason:
+          description: "Емкая фраза описывающия причину отказа"
+          type: string
+          example: "Передумал"
+          minLength: 1
+          maxLength: 150
+        comment:
+          description: "Дополнительные сведения к отказу от кредита"
+          type: string
+          example: "Потому что изменилось настроение"
+          minLength: 1
+          maxLength: 250
+        
     GuaranteeObligation:
       type: object
       properties:
