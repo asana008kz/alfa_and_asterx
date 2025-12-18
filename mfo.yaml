@@ -18,7 +18,7 @@ paths:
         '200':
           description: Successful operation
         
-  /leads/schedule/{KKNumber}:
+  /leads/schedule/{KKNumber}/{loanRepaymentProcedure}:
     get:
       tags:
         - Заявки на кредит
@@ -32,6 +32,16 @@ paths:
           schema:
             type: string
             example: "91"
+        - name: loanRepaymentProcedure
+          in: path
+          required: true
+          description: |
+            Порядок погашения кредита
+              - annuity (аннуитетный)
+              - differentiated (дифференцированный)
+          schema:
+            type: string
+            example: "annuity"
       responses:
         '200':
           description: Successful operation
@@ -49,7 +59,7 @@ paths:
                 type: string
                 example: "Для выбранного продукта указан не корректный срок погашения"
         '404':
-          description: "Текстовая ошибка"
+          description: "Отсутствие ресурса или данных для выполнения запроса"
           content:
             text/plain:
               schema:
