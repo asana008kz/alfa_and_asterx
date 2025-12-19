@@ -18,10 +18,74 @@ paths:
         '200':
           description: Successful operation
         
+  /leads:
+    post:
+      tags:
+        - Заявки на кредит
+      summary: Сервис для создания и обновления полного пакета документов
+      description: Создает ФизЛицо, Контрагента, Залог и Заявку
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponseAPI'
+        '400':
+          description: "Текстовая ошибка"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  Ошибка чтения сущности "ЗаявкаНаКредит"
+                  	Ошибка чтения поля "borrower"
+                  		Ошибка чтения сущности "Клиент"
+                  			Ошибка чтения поля "iin"
+                  				Ошибки в значении ИИН 891211555666
+                  					Контрольное число для ИИН не совпадает с рассчитанным.
+
+    patch:
+      tags:
+        - Заявки на кредит
+      summary: Метод для редактирования отдельных полей Заявки на кредит
+      description: Меняет статус заявки на Отменен
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelLoan'
+      responses:
+        '200':
+          description: Операция выполнена успешно
+        '400':
+          description: "Операцию выполнить не удалось"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  Статус заявки не позволяет выполнить отказ от кредита
+        '404':
+          description: "Завка по предоставленному номеру не найдена"
+          
   /leads/schedule/{KKNumber}/{loanRepaymentProcedure}:
     get:
       tags:
-        - Заявки на кредит
+        - Графики платежей
       summary: Сервис для получения графика платежей
       description: Делает предварительный расчет графика платежей (не сохраняет результат)
       parameters: # 2. Добавьте описание параметра
@@ -65,71 +129,6 @@ paths:
               schema:
                 type: string
                 example: "Заявка по предоставленному номеру КК не найдена"
-          
-  /leads:
-    post:
-      tags:
-        - Заявки на кредит
-      summary: Сервис для работы с заявками на микрокредит
-      description: Создает ФизЛицо, Контрагента, Залог и Заявку
-      requestBody:
-        required: true
-        description: Описание для JSON
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Loan'
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessResponseAPI'
-        '400':
-          description: "Текстовая ошибка"
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: |
-                  Ошибка чтения сущности "ЗаявкаНаКредит"
-                  	Ошибка чтения поля "borrower"
-                  		Ошибка чтения сущности "Клиент"
-                  			Ошибка чтения поля "iin"
-                  				Ошибки в значении ИИН 891211555666
-                  					Контрольное число для ИИН не совпадает с рассчитанным.
-
-    patch:
-      tags:
-        - Заявки на кредит
-      summary: Редактирует отдельные поля Заявки на кредит
-      description: Меняет статус заявки на Отменен
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        description: Описание для JSON
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CancelLoan'
-      responses:
-        '200':
-          description: Операция выполнена успешно
-        '400':
-          description: "Операцию выполнить не удалось"
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: |
-                  Статус заявки не позволяет выполнить отказ от кредита
-        '404':
-          description: "Завка по предоставленному номеру не найдена"
-          
 # Глобальное применение схемы безопасности ко всем путям
 security:
   - basicAuth: []
