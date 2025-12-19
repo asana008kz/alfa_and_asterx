@@ -52,7 +52,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ScheduleResponce'
         '400':
-          description: "Текстовая ошибка"
+          description: "Ошика выполнения запроса"
           content:
             text/plain:
               schema:
