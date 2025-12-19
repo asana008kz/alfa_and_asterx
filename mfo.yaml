@@ -262,6 +262,53 @@ components:
           type: number
           description: 'Номер строка графика погашения'
           example: "1"
+        period:
+          description: "Период"
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
+        paymentDate:
+          description: "Дата платежа"
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
+        principalDebt:
+          type: number
+          format: double
+          description: 'Основной долг'
+          example: "5 000 000.00"
+        reward:
+          type: number
+          format: double
+          description: 'Вознаграждение'
+          example: "5 000 000.00"
+        totalPayment:
+          type: number
+          format: double
+          description: 'Платеж'
+          example: "5 000 000.00"
+        remainingDebtBeforePayment:
+          type: number
+          format: double
+          description: 'Долг (до оплаты)'
+          example: "5 000 000.00"
+        remainingDebtAfterPayment:
+          type: number
+          format: double
+          description: 'Долг (после оплаты)'
+          example: "5 000 000.00"
+        currency:
+          description: "Валюта (всегда передается KZT)"
+          type: string
+          example: "KZT"
+          minLength: 3
+          maxLength: 3
+        paymentStatus:
+          description: "Статус платежа (всегда передается PLANNED)"
+          type: string
+          example: "PLANNED"
+          minLength: 1
+          maxLength: 10
     Collateral:
       type: object
       properties:
