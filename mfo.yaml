@@ -279,6 +279,18 @@ components:
           example: "12345"
           description: "Номер заявки в КК"
         
+        bic:
+          type: string
+          minLength: 8
+          maxLength: 8
+          example: "ATYNKZKA"
+          description: "БИК банка в котором открыт счет клиента"
+        accountNumber:
+          type: string
+          minLength: 20
+          maxLength: 20
+          example: "KZ000000000123456789"
+          description: "Номер счета"
     GuaranteeObligation:
       type: object
       properties:
