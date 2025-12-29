@@ -54,11 +54,41 @@ paths:
                   				Ошибки в значении ИИН 891211555666
                   					Контрольное число для ИИН не совпадает с рассчитанным.
 
+  /leads/cancel:
     patch:
       tags:
         - Заявки на кредит
-      summary: Метод для редактирования отдельных полей Заявки на кредит
-      description: Меняет статус заявки на Отменен
+      summary: Меняет статус заявки на "Отказ от займа"
+      description: Метод для перевода Заявки на кредит в статус "Отказ от займа"
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelLoan'
+      responses:
+        '200':
+          description: Операция выполнена успешно
+        '400':
+          description: "Операцию выполнить не удалось"
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  Статус заявки не позволяет выполнить отказ от кредита
+        '404':
+          description: "Завка по предоставленному номеру не найдена"
+          
+  /leads/completed:
+    patch:
+      tags:
+        - Заявки на кредит
+      summary: Меняет статус заявки на "Выдан"
+      description: Метод для перевода Заявки на кредит в статус "Выдан"
       security:
         - basicAuth: []
       requestBody:
