@@ -112,7 +112,7 @@ paths:
         '404':
           description: "Завка по предоставленному номеру не найдена"
           
-  /leads/schedule/{KKNumber}/{loanRepaymentProcedure}:
+  /leads/schedule/{KKNumber}/{loanRepaymentProcedure}/{issueDate}:
     get:
       tags:
         - Графики платежей
@@ -136,6 +136,14 @@ paths:
           schema:
             type: string
             example: "annuity"
+        - name: issueDate
+          in: path
+          required: true
+          description: Дата выдачи
+          schema:
+            type: string
+            format: date
+            example: "2026-01-21"
       responses:
         '200':
           description: Successful operation
@@ -259,6 +267,11 @@ components:
           $ref: '#/components/schemas/GuaranteeObligation'
         collateral:
           $ref: '#/components/schemas/Collateral'
+        issueDate:
+          description: Дата выдачи
+          type: string
+          format: date-time
+          example: "2025-01-22T20:50:43"
     CancelLoan:
       type: object
       properties:
