@@ -7,6 +7,10 @@ info:
 servers:
   - url: http://127.0.0.1/1c_mfo/hs/
 
+# Глобальное применение схемы безопасности ко всем путям
+security:
+  - basicAuth: []
+  
 paths:
   /leads/ping:
     get:
@@ -31,8 +35,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Loan'
-      security:
-        - basicAuth: []
       responses:
         '200':
           description: Successful operation
@@ -60,8 +62,6 @@ paths:
         - Заявки на кредит
       summary: Меняет статус заявки на "Отказ от займа"
       description: Метод для перевода Заявки на кредит в статус "Отказ от займа"
-      security:
-        - basicAuth: []
       requestBody:
         required: true
         description: Описание для JSON
@@ -89,8 +89,6 @@ paths:
         - Заявки на кредит
       summary: Меняет статус заявки на "Выдача займа"
       description: Метод для перевода Заявки на кредит в статус "Выдача займа"
-      security:
-        - basicAuth: []
       requestBody:
         required: true
         description: Описание для JSON
@@ -167,10 +165,6 @@ paths:
               schema:
                 type: string
                 example: "Заявка по предоставленному номеру КК не найдена"
-# Глобальное применение схемы безопасности ко всем путям
-security:
-  - basicAuth: []
-  
 components:
   securitySchemes:
     basicAuth:
