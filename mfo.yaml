@@ -215,7 +215,7 @@ paths:
                   $ref: '#/components/schemas/ResponseLineForPersonalAccount'
         '404':
           description: Ресурс не найден
-  /leads/debetors:
+  /leads/debtors:
     get:
       tags:
         - Личный кабинет
