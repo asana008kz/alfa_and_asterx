@@ -190,6 +190,31 @@ paths:
                   $ref: '#/components/schemas/ResponseLineForPersonalAccount'
         '404':
           description: Ресурс не найден
+  /leads/current_info/{IIN}:
+    get:
+      tags:
+        - Личный кабинет
+      summary: Актуальная информация по ИИН
+      description: Информация по активным соглашениям клиента
+      parameters:
+        - name: IIN
+          in: path
+          required: true
+          description: ИИН
+          schema:
+            type: string
+            example: "951109400079"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseLineForPersonalAccount'
+        '404':
+          description: Ресурс не найден
   /leads/debetors:
     get:
       tags:
