@@ -190,6 +190,24 @@ paths:
                   $ref: '#/components/schemas/ResponseLineForPersonalAccount'
         '404':
           description: Ресурс не найден
+  /leads/debetors:
+    get:
+      tags:
+        - Личный кабинет
+      summary: Список должников
+      description: Список ИИНов с активными договорами
+      parameters:
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LineWithIIN'
+        '404':
+          description: Ресурс не найден
 components:
   securitySchemes:
     basicAuth:
@@ -780,3 +798,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DebtLine'
+    LineWithIIN:
+      type: object
+      properties:
+        iin:
+          type: string
+          minLength: 12
+          maxLength: 12
+          example: "123456789012"
+          description: 
