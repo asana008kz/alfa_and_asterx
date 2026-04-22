@@ -15,7 +15,7 @@ paths:
   /leads/ping:
     get:
       tags:
-        - Тестирование соединения
+        - Служебное
       summary: Тестирование связи
       description: Подробное описание
       responses:
@@ -190,6 +190,107 @@ paths:
                   $ref: '#/components/schemas/ResponseLineForPersonalAccount'
         '404':
           description: Ресурс не найден
+  /leads/loan_application_info/{creditPipelineNumber}:
+    get:
+      tags:
+        - Заявки на кредит
+      summary: Получение информации по заявке
+      description: Получение информации по заявке
+      parameters:
+        - name: creditPipelineNumber
+          in: path
+          required: true
+          description: НомерКК
+          schema:
+            type: string
+            example: "1234567890"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseLoanApplicationInfo'
+        '404':
+          description: Ресурс не найден
+  /leads/credit_agreement_info/{agreementNumber}:
+    get:
+      tags:
+        - Для цессии
+      summary: Вся информация по ИИН
+      description: Вся информация по клиенту для личного кабинета
+      parameters:
+        - name: agreementNumber
+          in: path
+          required: true
+          description: Номер кредитного соглашения
+          schema:
+            type: string
+            example: "CL40000000055"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseCreditAgreementInfo'
+        '404':
+          description: Ресурс не найден
+  /leads/active_credit_agreements/{IIN}:
+    get:
+      tags:
+        - Для цессии
+      summary: Получение данных по активным кредитным соглашениям клиента
+      description: Получение данных по кредитным соглашениям клиента
+      parameters:
+        - name: IIN
+          in: path
+          required: true
+          description: ИИН
+          schema:
+            type: string
+            example: "951109400079"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseLineActiveClientAgreements'
+        '404':
+          description: Ресурс не найден
+  /leads/active_credit_agreements:
+    get:
+      tags:
+        - Для цессии
+      summary: Получение активных соглашений
+      description: Получение активных соглашений
+      parameters:
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseLineActiveCreditAgreements'
+        '404':
+          description: Ресурс не найден
+  /leads/swaggerfile:
+    get:
+      tags:
+        - Служебное
+      summary: Получение файла описания
+      description: Получение файла описания
+      parameters:
+      responses:
+        '200':
+          description: Успешное выполнение операции
 components:
   securitySchemes:
     basicAuth:
@@ -780,3 +881,160 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DebtLine'
+    ResponseLineActiveCreditAgreements:
+      type: object
+      properties:
+        agreementNumber:
+          type: string
+          minLength: 13
+          maxLength: 13
+          example: "CL40000000055"
+          description: 
+        odBalance:
+          type: number
+          example: 10 000 000.00
+          description: Сумма основного долга по кредитному соглашению
+        accruedReward:
+          type: number
+          example: 10 000 000.00
+          description: Не уплаченное начисленное вознаграждение с датой платежа до текущего момента
+        lastPayDate:
+          type: string
+          format: date
+          example: "2026-03-17T11:59:43"
+          description: Дата последнего платежа
+        lastPayAmount:
+          type: number
+          example: 10 000 000.00
+          description: Сумма последнего платежа
+        overdueDays:
+          type: number
+          example: 1
+          description: Количество просроченных дней
+        overdueAmt:
+          type: number
+          example: 10 000 000.00
+          description: Просроченная сумма
+        firstTwoPaymentsDone:
+          type: boolean
+          example: false
+          description: Отметка оплачены ли два первых платежа
+        restructuring:
+          type: boolean
+          example: false
+          description: Отметка произведена ли реструктуризация долга
+        monthlyPayment:
+          type: number
+          example: 10 000 000.00
+          description: Сумма первого ежемесячного платежа
+    ResponseLineActiveClientAgreements:
+      type: object
+      properties:
+        agreementNumber:
+          type: string
+          minLength: 13
+          maxLength: 13
+          example: "CL40000000055"
+          description: 
+        annualInterestRate:
+          type: number
+          example: 12.8
+          description: Годовая процентная ставка
+        annualEffectiveInterestRate:
+          type: number
+          example: 12.8
+          description: ГЭСВ
+        principalDebt:
+          type: number
+          example: 10 000 000.00
+          description: Сумма основного долга по кредитному соглашению
+        reward:
+          type: number
+          example: 10 000 000.00
+          description: Сумма вознаграждения по кредитному соглашению
+        remainingDebt:
+          type: number
+          example: 10 000 000.00
+          description: Остаток долга
+        toBePaid:
+          type: number
+          example: 10 000 000.00
+          description: К оплате
+    ResponseCreditAgreementInfo:
+      type: object
+      properties:
+        agreementNumber:
+          type: string
+          minLength: 13
+          maxLength: 13
+          example: "CL40000000055"
+          description: 
+        odBalance:
+          type: number
+          example: 10 000 000.00
+          description: Сумма основного долга по кредитному соглашению
+        accruedReward:
+          type: number
+          example: 10 000 000.00
+          description: Не уплаченное начисленное вознаграждение с датой платежа до текущего момента
+        lastPayDate:
+          type: string
+          format: date
+          example: "2026-03-17T11:59:43"
+          description: Дата последнего платежа
+        lastPayAmount:
+          type: number
+          example: 10 000 000.00
+          description: Сумма последнего платежа
+        overdueDays:
+          type: number
+          example: 1
+          description: Количество просроченных дней
+        overdueAmt:
+          type: number
+          example: 10 000 000.00
+          description: Просроченная сумма
+        firstTwoPaymentsDone:
+          type: boolean
+          example: false
+          description: Отметка оплачены ли два первых платежа
+        restructuring:
+          type: boolean
+          example: false
+          description: Отметка произведена ли реструктуризация долга
+        monthlyPayment:
+          type: number
+          example: 10 000 000.00
+          description: Сумма первого ежемесячного платежа
+    ResponseLoanApplicationInfo:
+      type: object
+      properties:
+        firstPaymentDate:
+          type: string
+          format: date
+          example: "2026-03-17T11:59:43"
+          description: Дата первого платежа
+        firstPaymentAmount:
+          type: number
+          example: 10 000 000.00
+          description: Сумма первого платежа
+        totalRepaymentAmount:
+          type: number
+          example: 10 000 000.00
+          description: Общая сумма погашения
+        principalDebt:
+          type: number
+          example: 10 000 000.00
+          description: Сумма основного долга по кредитному соглашению
+        reward:
+          type: number
+          example: 10 000 000.00
+          description: Сумма вознаграждения по кредитному соглашению
+        commissions:
+          type: number
+          example: 10 000 000.00
+          description: Комиссии и иные платежи
+        loanOverpayment:
+          type: number
+          example: 10 000 000.00
+          description: Переплата по кредиту
