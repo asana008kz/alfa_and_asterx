@@ -61,7 +61,7 @@ paths:
     post:
       tags:
         - AMP Estimate (KZ)
-      summary: Краткое описание
+      summary: Интеграция траншей по выкупу автомобилей из AsterX
       description: Подробное описание
       requestBody:
         required: true
