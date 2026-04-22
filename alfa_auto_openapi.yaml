@@ -1778,10 +1778,10 @@ components:
           type: string
           description: Назначение платежа
           example: 'Снят с учёта'
-        paymentDate:
+        plannedPaymentDate:
           type: string
           format: date
-          description: Дата платежа
+          description: Планируемая дата оплаты
           example: "2019-11-20"
         
     Discounts:
