@@ -1774,6 +1774,10 @@ components:
           format: float
           description: Сумма транша
           example: 3500000
+        paymentPurpose:
+          type: string
+          description: Назначение платежа
+          example: 'Снят с учёта'
         paymentDate:
           type: string
           format: date
