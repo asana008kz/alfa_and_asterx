@@ -57,6 +57,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponseAPI'
         
+  /amp-buyback-tranche:
+    post:
+      tags:
+        - AMP Estimate (KZ)
+      summary: Краткое описание
+      description: Подробное описание
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuybackTranche'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: ""
+                  data:
+                    $ref: '#/components/schemas/AMPEstimateResponseData'
+        '400':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseAPI'
+        
   /car-shipping-price:
     get:
       tags:
@@ -782,7 +819,7 @@ components:
         date:
           type: string
           format: date-time
-          example: "2025-01-22T20:50:43"
+          example: "2025-01-22T20:50:43+05:00"
         id:
           type: string
           example: "425212"
@@ -924,7 +961,7 @@ components:
         date:
           type: string
           format: date-time
-          example: "2019-11-20T00:00:00"
+          example: "2019-11-20T00:00:00+05:00"
         number:
           type: string
           example: "00438860"
@@ -1045,7 +1082,7 @@ components:
         date:
           type: string
           format: date-time
-          example: "2025-01-22T05:00:00"
+          example: "2025-01-22T05:00:00+05:00"
         time:
           type: string
           example: "17:44"
@@ -1073,15 +1110,15 @@ components:
         TimeStart:
           type: string
           format: date-time
-          example: "2025-01-22T17:39:32.003"
+          example: "2025-01-22T17:39:32+05:00"
         TimeAnswer:
           type: string
           format: date-time
-          example: "2025-01-22T17:39:33.983"
+          example: "2025-01-22T17:39:33+05:00"
         TimeStop:
           type: string
           format: date-time
-          example: "2025-01-22T17:40:28.400"
+          example: "2025-01-22T17:40:28+05:00"
         Astr:
           type: string
           example: "87013096585"
@@ -1148,7 +1185,7 @@ components:
         birthdate:
           type: string
           format: date-time
-          example: "0001-01-01T00:00:00"
+          example: "0001-01-01T00:00:00+05:00"
         phone:
           type: string
           example: "+7 (777) 244-49-27"
@@ -1282,7 +1319,7 @@ components:
           type: string
           format: date-time
           description: The date and time of the inventory record
-          example: "2025-01-18T12:08:42"
+          example: "2025-01-18T12:08:42+05:00"
         id:
           type: string
           description: Unique identifier for the inventory record
@@ -1482,7 +1519,7 @@ components:
           type: string
           format: date-time
           description: Date and time the document was issued
-          example: "2024-05-22T09:14:16"
+          example: "2024-05-22T09:14:16+05:00"
         procurationNumber:
           type: string
           description: Procuration number
@@ -1556,7 +1593,7 @@ components:
         date:
           type: string
           format: date-time
-          example: '2025-01-23T20:57:35'
+          example: '2025-01-23T20:57:35+05:00'
         status:
           type: string
           example: 'on_pre_agreement'
@@ -1572,7 +1609,7 @@ components:
         plannedIssueDate:
           type: string
           format: date-time
-          example: '2025-01-23T21:01:27'
+          example: '2025-01-23T21:01:27+05:00'
         amp:
           type: boolean
           example: true
@@ -1705,6 +1742,44 @@ components:
           type: string
           example: '00000102'
 
+    BuybackTranche:
+      type: object
+      required:
+        - id
+        - carBuybackWorksheetNumber
+        - contractNumber
+        - contractDate
+        - amount
+        - paymentDate
+      properties:
+        id:
+          type: integer
+          description: Номер транша
+          example: 875620
+        carBuybackWorksheetNumber:
+          type: integer
+          description: Номер выкупа
+          example: 536097
+        contractNumber:
+          type: string
+          description: Номер договора
+          example: '00000102'
+        contractDate:
+          type: string
+          format: date
+          description: Дата договора
+          example: "2019-11-20"
+        amount:
+          type: number
+          format: float
+          description: Сумма транша
+          example: 3500000
+        paymentDate:
+          type: string
+          format: date
+          description: Дата платежа
+          example: "2019-11-20"
+        
     Discounts:
       type: object
       required:
@@ -1865,7 +1940,7 @@ components:
         date:
           type: string
           format: date-time
-          example: "2025-01-23T19:40:25"
+          example: "2025-01-23T19:40:25+05:00"
         id:
           type: string
           example: "995"
@@ -1999,7 +2074,7 @@ components:
         date:
           type: string
           format: date-time
-          example: "2025-01-23T20:10:19"
+          example: "2025-01-23T20:10:19+05:00"
         id:
           type: string
           example: "816"
