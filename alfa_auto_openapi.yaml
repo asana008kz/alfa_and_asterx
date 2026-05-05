@@ -1753,9 +1753,9 @@ components:
         - paymentDate
       properties:
         id:
-          type: integer
+          type: string
           description: Номер транша
-          example: 875620
+          example: "875620"
         carBuybackWorksheetNumber:
           type: integer
           description: Номер выкупа
