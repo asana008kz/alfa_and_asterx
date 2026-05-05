@@ -1753,13 +1753,13 @@ components:
         - paymentDate
       properties:
         id:
-          type: string
-          description: Номер транша
-          example: "875620"
-        carBuybackWorksheetNumber:
           type: integer
+          description: Номер транша
+          example: 875620
+        carBuybackWorksheetNumber:
+          type: string
           description: Номер выкупа
-          example: 536097
+          example: "536097"
         contractNumber:
           type: string
           description: Номер договора
