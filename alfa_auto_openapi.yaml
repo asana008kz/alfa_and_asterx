@@ -1799,6 +1799,10 @@ components:
           type: string
           description: Ссылка на Справка о задолженности из банка
           example: 'https://www.aster.kz'
+        applicationForNonCashPayment:
+          type: string
+          description: Ссылка на Заявление на безналичный расчет
+          example: 'https://www.aster.kz'
         certificateOfDebtFromTheBankLink :
           type: string
           description: Ссылка на Акт приема-передачи
@@ -1809,8 +1813,11 @@ components:
           example: 'https://www.aster.kz'
         clientDetailsLink:
           type: string
-          description: Ссылка на Уд. личности (3-го лица)
+          description: Ссылка на Реквизиты клиента
           example: 'https://www.aster.kz'
+        thirdPartyIDCard:
+          type: string
+          description: Ссылка на Уд. личности (3-го лица)
         spouseConsentLink:
           type: string
           description: Ссылка на Согласие супруги
