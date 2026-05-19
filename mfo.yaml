@@ -1026,3 +1026,14 @@ components:
           type: number
           example: 10 000 000.00
           description: Переплата по кредиту
+    ResponsePaymentSchedule:
+      type: object
+      properties:
+        annualEffectiveInterestRate:
+          type: number
+          example: 12.8
+          description: ГЭСВ
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentScheduleLine'
