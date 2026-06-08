@@ -1765,9 +1765,9 @@ components:
           description: Номер транша
           example: 875620
         carBuybackWorksheetNumber:
-          type: integer
+          type: string
           description: Номер выкупа
-          example: 536097
+          example: "536097"
         contractNumber:
           type: string
           description: Номер договора
@@ -1791,6 +1791,58 @@ components:
           format: date
           description: Планируемая дата оплаты
           example: "2019-11-20"
+        purchaseAndSaleAgreementLink:
+          type: string
+          description: Ссылка на Договор купли-продажи
+          example: 'https://www.aster.kz'
+        acceptanceCertificateLink:
+          type: string
+          description: Ссылка на Акт приема-передачи
+          example: 'https://www.aster.kz'
+        technicalPassportLink:
+          type: string
+          description: Ссылка на Тех. паспорт
+          example: 'https://www.aster.kz'
+        identityCardLink :
+          type: string
+          description: Ссылка на Справка о задолженности из банка
+          example: 'https://www.aster.kz'
+        applicationForNonCashPayment:
+          type: string
+          description: Ссылка на Заявление на безналичный расчет
+          example: 'https://www.aster.kz'
+        certificateOfDebtFromTheBankLink :
+          type: string
+          description: Ссылка на Акт приема-передачи
+          example: 'https://www.aster.kz'
+        certificateOfEncumbranceOnVehicleLink:
+          type: string
+          description: Ссылка на Справка об обременении на авто
+          example: 'https://www.aster.kz'
+        clientDetailsLink:
+          type: string
+          description: Ссылка на Реквизиты клиента
+          example: 'https://www.aster.kz'
+        thirdPartyIDCard:
+          type: string
+          description: Ссылка на Уд. личности (3-го лица)
+          example: 'https://www.aster.kz'
+        spouseConsentLink:
+          type: string
+          description: Ссылка на Согласие супруги
+          example: 'https://www.aster.kz'
+        powerOfAttorneyLink:
+          type: string
+          description: Ссылка на ДКП зачетного авто
+          example: 'https://www.aster.kz'
+        purchaseAndSaleAgreementOfTradeInCarLink:
+          type: string
+          description: Ссылка на Акт приема-передачи
+          example: 'https://www.aster.kz'
+        customerApplicationForExchangeLink :
+          type: string
+          description: Ссылка на Заявление клиента на обмен
+          example: 'https://www.aster.kz'
         
     Discounts:
       type: object

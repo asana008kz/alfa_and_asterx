@@ -113,17 +113,17 @@ paths:
   /leads/schedule/{KKNumber}/{loanRepaymentProcedure}/{issueDate}:
     get:
       tags:
-        - Графики платежей
+        - График платежей
       summary: Сервис для получения графика платежей
       description: Делает предварительный расчет графика платежей (не сохраняет результат)
-      parameters: # 2. Добавьте описание параметра
+      parameters:
         - name: KKNumber
           in: path
           required: true
-          description: Номер КК
+          description: Номер заявки в кредитном конвеере
           schema:
             type: string
-            example: "91"
+            example: "1234567890"
         - name: loanRepaymentProcedure
           in: path
           required: true
@@ -131,6 +131,7 @@ paths:
             Порядок погашения кредита
               - annuity (аннуитетный)
               - differentiated (дифференцированный)
+
           schema:
             type: string
             example: "annuity"
@@ -140,31 +141,18 @@ paths:
           description: Дата выдачи
           schema:
             type: string
-            format: date
-            example: "2026-01-21"
+            example: "2026-05-18"
       responses:
         '200':
-          description: Successful operation
-          content:
+          description: Успешное выполнение операции
+          content: 
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScheduleResponce'
+                $ref: '#/components/schemas/ResponsePaymentSchedule'
         '400':
-          description: "Ошика выполнения запроса"
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "Для выбранного продукта указан не корректный срок погашения"
+          description: Ошибка выполнения запроса
         '404':
-          description: "Отсутствие ресурса или данных для выполнения запроса"
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "Заявка по предоставленному номеру КК не найдена"
+          description: Ресурс не найден
   /leads/info/{IIN}:
     get:
       tags:
@@ -1038,3 +1026,14 @@ components:
           type: number
           example: 10 000 000.00
           description: Переплата по кредиту
+    ResponsePaymentSchedule:
+      type: object
+      properties:
+        annualEffectiveInterestRate:
+          type: number
+          example: 12.8
+          description: ГЭСВ
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentScheduleLine'
