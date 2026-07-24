@@ -131,13 +131,7 @@ paths:
                     type: string
                     example: ""
                   data:
-                    type: object
-                    properties:
-                      PrintForm:
-                        type: string
-                        format: byte
-                        description: PDF document encoded as Base64
-                        example: JVBERi0xLjQKJ...
+                    $ref: '#/components/schemas/PaymentDocumentsPdfData'
   /car-shipping-price:
     get:
       tags:
@@ -2188,3 +2182,11 @@ components:
         warehouseId:
           type: string
           example: "000000960"
+
+    PaymentDocumentsPdfData:
+      type: object
+      properties:
+        PrintForm:
+          type: string
+          format: byte
+          description: PDF document encoded as Base64
