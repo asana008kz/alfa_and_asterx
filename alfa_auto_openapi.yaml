@@ -102,6 +102,42 @@ paths:
                 example: |
                   Документ находится в статусе при котором изменение документа заблокировано
 
+  /amp-buyback-tranche/getPaymentDocumentsPdf/{trancheId}:
+    get:
+      tags:
+        - AMP Estimate (KZ)
+      summary: Получение pdf-файлов платежек по траншу
+      description: Получение pdf-файлов платежек по траншу
+      parameters:
+        - name: trancheId
+          in: path
+          required: true
+          description: Номер транша
+          schema:
+            type: string
+            example: "526017"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: ""
+                  data:
+                    type: object
+                    properties:
+                      PrintForm:
+                        type: string
+                        format: byte
+                        description: PDF document encoded as Base64
+                        example: JVBERi0xLjQKJ...
   /car-shipping-price:
     get:
       tags:
