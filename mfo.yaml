@@ -1,88 +1,15 @@
 openapi: 3.0.3
 info:
   title: "1С:Микрофинансовая организация"
-  description: |-
+  description: | 
     Сервис микрокредитования
   version: kz
 servers:
-  - url: http://127.0.0.1/1c_mfo/hs/
-
-# Глобальное применение схемы безопасности ко всем путям
+  - url: http: //127.0.0.1/1c_mfo/hs/
 security:
   - basicAuth: []
-  
-paths:
-  /leads/ping:
-    get:
-      tags:
-        - Служебное
-      summary: Тестирование связи
-      description: Подробное описание
-      responses:
-        '200':
-          description: Successful operation
-        
-  /leads:
-    post:
-      tags:
-        - Заявки на кредит
-      summary: Сервис для создания и обновления полного пакета документов
-      description: Создает ФизЛицо, Контрагента, Залог и Заявку
-      requestBody:
-        required: true
-        description: Описание для JSON
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Loan'
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SuccessResponseAPI'
-        '400':
-          description: "Текстовая ошибка"
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: |
-                  Ошибка чтения сущности "ЗаявкаНаКредит"
-                  	Ошибка чтения поля "borrower"
-                  		Ошибка чтения сущности "Клиент"
-                  			Ошибка чтения поля "iin"
-                  				Ошибки в значении ИИН 891211555666
-                  					Контрольное число для ИИН не совпадает с рассчитанным.
 
-  /leads/cancel:
-    patch:
-      tags:
-        - Заявки на кредит
-      summary: Меняет статус заявки на "Отказ от займа"
-      description: Метод для перевода Заявки на кредит в статус "Отказ от займа"
-      requestBody:
-        required: true
-        description: Описание для JSON
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CancelLoan'
-      responses:
-        '200':
-          description: Операция выполнена успешно
-        '400':
-          description: "Операцию выполнить не удалось"
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: |
-                  Статус заявки не позволяет выполнить отказ от кредита
-        '404':
-          description: "Завка по предоставленному номеру не найдена"
-          
+paths:
   /leads/completed:
     patch:
       tags:
@@ -95,22 +22,175 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IssueLoan'
+              $ref: '#/components/schemas/RequestSetStatusCompleted'
       responses:
         '200':
-          description: Операция выполнена успешно
+          description: Успешное выполнение операции
         '400':
-          description: "Операцию выполнить не удалось"
-          content:
-            text/plain:
+          description: Ошибка выполнения запроса
+        '409':
+          description: Статус заявки не позволяет выполнить отказ от кредита
+  /leads/cancel:
+    patch:
+      tags:
+        - Заявки на кредит
+      summary: Меняет статус заявки на "Отказ от займа"
+      description: Метод для перевода Заявки на кредит в статус "Отказ от займа"
+      requestBody:
+        required: true
+        description: Описание для JSON
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestSetStatusCancelled'
+      responses:
+        '200':
+          description: Успешное выполнение операции
+        '400':
+          description: Ошибка выполнения запроса
+        '409':
+          description: Статус заявки не позволяет выполнить отказ от кредита
+  /leads/loan_application_info/{creditPipelineNumber
+}:
+    get:
+      tags:
+        - Личный кабинет
+      summary: Получение информации по заявке
+      description: Получение информации по заявке
+      parameters:
+        - name: creditPipelineNumber
+          in: path
+          required: true
+          description: НомерКК
+          schema:
+            type: string
+            example: "1234567890"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
               schema:
-                type: string
-                example: |
-                  Статус заявки не позволяет выполнить отказ от кредита
+                $ref: '#/components/schemas/ResponseLoanApplicationInfo'
         '404':
-          description: "Завка по предоставленному номеру не найдена"
-          
-  /leads/schedule/{KKNumber}/{loanRepaymentProcedure}/{issueDate}:
+          description: Ресурс не найден
+  /leads/repayment_options/{creditPipelineNumber
+}:
+    get:
+      tags:
+        - Личный кабинет
+      summary: Варианты погашения кредита
+      description: Возвращает варианты погашения кредита: очередной ежемесячный платеж и досрочное погашение
+      parameters:
+        - name: creditPipelineNumber
+          in: path
+          required: true
+          description: Номер заявки в кредитном конвейере
+          schema:
+            type: string
+            example: "1234567890"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseRepaymentOptions'
+        '400':
+          description: Ошибка выполнения запроса
+        '404':
+          description: Ресурс не найден
+  /leads/credit_agreement_info/{agreementNumber
+}:
+    get:
+      tags:
+        - Для цессии
+      summary: Вся информация по ИИН
+      description: Вся информация по клиенту для личного кабинета
+      parameters:
+        - name: agreementNumber
+          in: path
+          required: true
+          description: Номер кредитного соглашения
+          schema:
+            type: string
+            example: "CL40000000055"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseCreditAgreementInfo'
+        '404':
+          description: Ресурс не найден
+  /leads/active_credit_agreements/{IIN
+}:
+    get:
+      tags:
+        - Для цессии
+      summary: Получение данных по активным кредитным соглашениям клиента
+      description: Получение данных по кредитным соглашениям клиента
+      parameters:
+        - name: IIN
+          in: path
+          required: true
+          description: ИИН
+          schema:
+            type: string
+            example: "951109400079"
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseLineActiveClientAgreements'
+        '404':
+          description: Ресурс не найден
+  /leads/active_credit_agreements:
+    get:
+      tags:
+        - Для цессии
+      summary: Получение активных соглашений
+      description: Получение активных соглашений
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseLineActiveCreditAgreements'
+        '404':
+          description: Ресурс не найден
+  /leads/swaggerfile:
+    get:
+      tags:
+        - Служебное
+      summary: Получение файла описания
+      description: Получение файла описания
+      responses:
+        '200':
+          description: Успешное выполнение операции
+  /leads/ping:
+    get:
+      tags:
+        - Служебное
+      summary: Тестирование соединения
+      description: Тестирование соединения
+      responses:
+        '200':
+          description: Успешное выполнение операции
+  /leads/schedule/{KKNumber
+}/{loanRepaymentProcedure
+}/{issueDate
+}:
     get:
       tags:
         - График платежей
@@ -153,623 +233,78 @@ paths:
           description: Ошибка выполнения запроса
         '404':
           description: Ресурс не найден
-  /leads/info/{IIN}:
-    get:
-      tags:
-        - Личный кабинет
-      summary: Вся информация по ИИН
-      description: Вся информация по клиенту для личного кабинета
-      parameters:
-        - name: IIN
-          in: path
-          required: true
-          description: ИИН
-          schema:
-            type: string
-            example: "951109400079"
-      responses:
-        '200':
-          description: Успешное выполнение операции
-          content: 
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ResponseLineForPersonalAccount'
-        '404':
-          description: Ресурс не найден
-  /leads/loan_application_info/{creditPipelineNumber}:
-    get:
-      tags:
-        - Заявки на кредит
-      summary: Получение информации по заявке
-      description: Получение информации по заявке
-      parameters:
-        - name: creditPipelineNumber
-          in: path
-          required: true
-          description: НомерКК
-          schema:
-            type: string
-            example: "1234567890"
-      responses:
-        '200':
-          description: Успешное выполнение операции
-          content: 
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseLoanApplicationInfo'
-        '404':
-          description: Ресурс не найден
-  /leads/credit_agreement_info/{agreementNumber}:
-    get:
-      tags:
-        - Для цессии
-      summary: Вся информация по ИИН
-      description: Вся информация по клиенту для личного кабинета
-      parameters:
-        - name: agreementNumber
-          in: path
-          required: true
-          description: Номер кредитного соглашения
-          schema:
-            type: string
-            example: "CL40000000055"
-      responses:
-        '200':
-          description: Успешное выполнение операции
-          content: 
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ResponseCreditAgreementInfo'
-        '404':
-          description: Ресурс не найден
-  /leads/active_credit_agreements/{IIN}:
-    get:
-      tags:
-        - Для цессии
-      summary: Получение данных по активным кредитным соглашениям клиента
-      description: Получение данных по кредитным соглашениям клиента
-      parameters:
-        - name: IIN
-          in: path
-          required: true
-          description: ИИН
-          schema:
-            type: string
-            example: "951109400079"
-      responses:
-        '200':
-          description: Успешное выполнение операции
-          content: 
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ResponseLineActiveClientAgreements'
-        '404':
-          description: Ресурс не найден
-  /leads/active_credit_agreements:
-    get:
-      tags:
-        - Для цессии
-      summary: Получение активных соглашений
-      description: Получение активных соглашений
-      parameters:
-      responses:
-        '200':
-          description: Успешное выполнение операции
-          content: 
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ResponseLineActiveCreditAgreements'
-        '404':
-          description: Ресурс не найден
-  /leads/swaggerfile:
-    get:
-      tags:
-        - Служебное
-      summary: Получение файла описания
-      description: Получение файла описания
-      parameters:
-      responses:
-        '200':
-          description: Успешное выполнение операции
 components:
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
   schemas:
-    Loan:
+    ResponseEarlyRepaymentOption:
       type: object
       properties:
-        date:
-          description: "Дата заявки на получение микрокредита"
-          type: string
-          format: date-time
-          example: "2025-01-22T20:50:43"
-        creditPipelineNumber:
-          type: string
-          minLength: 10
-          maxLength: 10
-          example: "12345"
-          description: "Номер заявки в КК"
-        borrower:
-          $ref: '#/components/schemas/Contragent'
-        managerIIN:
-          description: "ИИН кредитного менеджера"
-          type: string
-          example: "951109400079"
-          minLength: 12
-          maxLength: 12
-        creditProductId:
-          description: "Идентификатор кредитного продукта (код элемента из 1С:МФО)"
-          type: string
-          example: "000000001"
-          minLength: 10
-          maxLength: 10
-        amount:
-          type: number
-          format: double
-          description: 'Сумма заема'
-          example: "3 000 000.00"
-        currencyId:
-          description: 'Код валюты по справочнику 1С:МФО'
-          type: string
-          example: "398"
-          minLength: 3
-          maxLength: 3
-        loanTerm:
-          description: 'Срок заема'
-          type: integer
-          example: "60"
-        loanPurposeId:
-          description: "Идентификатор цели кредитования (код элемента из 1С:МФО)"
-          type: string
-          example: "000000001"
-          minLength: 10
-          maxLength: 10
-        loanСollateralCost:
-          type: number
-          format: double
-          description: 'Сумма обеспечения кредита'
-          example: "3 000 000.00"
-        downPayment:
-          type: number
-          format: double
-          description: 'Сумма первоначального взноса (если не заполнен процент в downPaymentPercentage)'
-          example: "1 000 000.00"
-        downPaymentPercentage:
-          type: number
-          format: double
-          description: 'Процент первоначального взноса (если не заполнена сумма в downPayment)'
-          example: "10.0%"
-        bic:
-          type: string
-          minLength: 8
-          maxLength: 8
-          example: "ATYNKZKA"
-          description: "БИК банка в котором открыт счет клиента"
-        accountNumber:
-          type: string
-          minLength: 20
-          maxLength: 20
-          example: "KZ000000000123456789"
-          description: "Номер счета"
-        status:
-          type: string
-          description: |
-            1) loan - Заявление
-            2) cancel - Отказ от займа
-            3) contract - Кредитное соглашение
-            4) completed - Выдача займа
-          example: "loan"
-          minLength: 1
-          maxLength: 40
-        guaranteeObligation:
-          $ref: '#/components/schemas/GuaranteeObligation'
-        collateral:
-          $ref: '#/components/schemas/Collateral'
-        issueDate:
-          description: Дата выдачи
-          type: string
-          format: date-time
-          example: "2025-01-22T20:50:43"
-    CancelLoan:
-      type: object
-      properties:
-        creditPipelineNumber:
-          type: string
-          minLength: 10
-          maxLength: 10
-          example: "12345"
-          description: "Номер заявки в КК"
-        refusalReason:
-          description: "Емкая фраза описывающия причину отказа"
-          type: string
-          example: "Передумал"
-          minLength: 1
-          maxLength: 150
-        comment:
-          description: "Дополнительные сведения к отказу от кредита"
-          type: string
-          example: "Потому что изменилось настроение"
-          minLength: 1
-          maxLength: 250
-        
-    IssueLoan:
-      type: object
-      properties:
-        creditPipelineNumber:
-          type: string
-          minLength: 10
-          maxLength: 10
-          example: "12345"
-          description: "Номер заявки в КК"
-    GuaranteeObligation:
-      type: object
-      properties:
-        guarantor:
-          $ref: '#/components/schemas/Contragent'
-        acceptedGuaranteeAmount:
-          type: number
-          format: double
-          description: 'Сумма принятой гарантии'
-          example: "5 000 000.00"
-        warrantyPeriod:
-          description: "Срок действия гарантии"
-          type: string
-          format: date-time
-          example: "2025-01-22T20:50:43"
-    ScheduleResponce:
-      type: object
-      properties:
-        lineNumber:
-          type: number
-          description: 'Номер строка графика погашения'
-          example: "1"
-        period:
-          description: "Период"
-          type: string
-          format: date-time
-          example: "2025-01-22T20:50:43"
         paymentDate:
-          description: "Дата платежа"
           type: string
-          format: date-time
-          example: "2025-01-22T20:50:43"
-        principalDebt:
+          format: date
+          example: "2026-03-17T11:59:43"
+          description: Дата платежа
+        paymentAmount:
           type: number
-          format: double
-          description: 'Основной долг'
-          example: "5 000 000.00"
-        reward:
-          type: number
-          format: double
-          description: 'Вознаграждение'
-          example: "5 000 000.00"
-        totalPayment:
-          type: number
-          format: double
-          description: 'Платеж'
-          example: "5 000 000.00"
-        remainingDebtBeforePayment:
-          type: number
-          format: double
-          description: 'Долг (до оплаты)'
-          example: "5 000 000.00"
-        remainingDebtAfterPayment:
-          type: number
-          format: double
-          description: 'Долг (после оплаты)'
-          example: "5 000 000.00"
-        currency:
-          description: "Валюта (всегда передается KZT)"
-          type: string
-          example: "KZT"
-          minLength: 3
-          maxLength: 3
+          example: 10 000 000.00
+          description: Сумма платежа
         paymentStatus:
-          description: "Статус платежа (всегда передается PLANNED)"
           type: string
-          example: "PLANNED"
-          minLength: 1
-          maxLength: 10
-    Collateral:
-      type: object
-      properties:
-        car:
-          $ref: '#/components/schemas/Car'
-        estimatedValue:
-          type: number
-          format: double
-          description: 'Оценочная стоимость'
-          example: "5 000 000.00"
-        collateralValue:
-          type: number
-          format: double
-          description: 'Залоговая стоимость'
-          example: "5 000 000.00"
-        collateralPeriod:
-          description: "Срок действия залога"
-          type: string
-          format: date-time
-          example: "2025-01-22T20:50:43"
-    Car:
-      type: object
-      required:
-        - vin
-        - marka
-        - model
-        - variant
-        - year
-        - mileage
-      properties:
-        vin:
-          type: string
-          example: "Z8NFBAJ11ES089400"
-          description: "VIN"
-        marka:
-          type: string
-          example: "Lada"
-          description: "Марка"
-        model:
-          type: string
-          example: "Priora"
-          description: "Мдель"
-        variant:
-          type: string
-          example: "Вариант"
-          description: "Вариант"
-        year:
-          type: integer
-          example: 2019
-          description: "Год выпуска"
-        bodyType:
-          type: string
-          example: "6"
-          description: "Тип кузова"
-        dwheelType:
-          type: string
-          example: "Передний"
-          description: "Тип привода"
-        transmission:
-          type: string
-          example: "1"
-          description: "Трансмиссия"
-        engineVolume:
-          type: string
-          example: "1997"
-          description: "Объем двигателя"
-        engineType:
-          type: string
-          example: "1"
-          description: "Тип двигателя"
-        color:
-          type: string
-          example: "Белый"
-          description: "Наименование цвета"
-        mileage:
-          type: integer
-          example: 58371
-          description: "Пробег"
-        interiorMaterials:
-          type: string
-          example: "Темный"
-          description: "Материалы салона"
-        steering:
-          type: string
-          example: "1"
-          description: "Расположение руля"
-        engineNumber:
-          type: string
-          example: "123456"
-          description: "Номер двигателя"
-    
-    ContragentDocument:
-      type: object
-      description: |
-          Документ идентификации личности
-          (удостоверение, паспорт и т. д.)
-      required:
-        - number
-        - issuedAuthority
-        - documentType
-        - series
-        - dateOfIssue
-        - dateOfExpiration
-      properties:
-        documentType:
-          type: string
-          example: "Удостоверение личности РК"
           minLength: 1
           maxLength: 100
-          description: "Тип документа"
-        series:
+          example: "Ожидает оплаты"
+          description: Статус платежа
+        debtAfterPayment:
+          type: number
+          example: 10 000 000.00
+          description: Текущая задолженность после оплаты
+        loanStatus:
           type: string
-          example: ""
-          minLength: 0
+          minLength: 1
           maxLength: 100
-          description: "Серия документа"
-        number:
-          type: string
-          example: "042555774"
-          minLength: 1
-          maxLength: 30
-          description: "Номер документа"
-        dateOfIssue:
+          example: "Досрочно погашен"
+          description: Статус кредита после оплаты
+        loanClosingDate:
           type: string
           format: date
-          example: "2017-04-07"
-          description: "Дата выпуска документа"
-        dateOfExpiration:
-          type: string
-          format: date
-          example: "2017-04-07"
-          description: "Дата истечения срока действия документа"
-        issuedAuthority:
-          type: string
-          example: "МВД РК"
-          description: "Ведомство выдавшее документ"
-
-    Contragent:
-      type: object
-      required:
-        - iin
-        - birthdate
-        - birthPlace
-        - address
-        - clientLanguage
-        - gender
-        - document
-        - firstName
-        - lastName
-        - middleName
-        - phone
-        - registrationCountry
-        - countryCode
-        - email
-      properties:
-        document:
-          $ref: '#/components/schemas/ContragentDocument'
-        iin:
-          type: string
-          example: '830622301914'
-          description: "ИИН"
-          minLength: 12
-          maxLength: 12
-        birthdate:
-          type: string
-          format: date
-          example: '1983-06-22'
-          description: "Дата рождения"
-        birthPlace:
-          type: string
-          example: 'РК'
-          description: "Место рождения"
-        address:
-          type: string
-          example: 'Алматинская область Енбекшиказахский район Рахатский с.о. Арычная 7А'
-          description: "Адрес"
-        clientLanguage:
-          type: string
-          example: 'RU'
-          description: "Язык"
-        gender:
-          type: string
-          example: 'M'
-          description: "Пол"
-        firstName:
-          type: string
-          example: 'Дәурен'
-          description: "Имя"
-        lastName:
-          type: string
-          example: 'Айтбаев'
-          description: "Фамилия"
-        middleName:
-          type: string
-          example: 'Қанатұлы'
-          description: "Отчество"
-        phone:
-          type: string
-          example: '77009752107'
-          description: "Номер телефона"
-        countryCode:
-          type: string
-          example: 'KAZ'
-          description: "Код страны"
-        email:
-          type: string
-          example: null
-          description: "Адрес электронной почты"
-        registrationCountry:
-          type: string
-          example: 'Казахстан'
-          description: "Наименование страны регистрации"
-
-    SuccessResponseAPI:
+          example: "2026-03-17T11:59:43"
+          description: Дата закрытия кредита
+    ResponseRegularPaymentOption:
       type: object
       properties:
-        loanApplicationNumber:
-          type: string
-          example: "1-000000020"
-          description: "Номер заявления на получение кредита"
-        loanApplicationDate:
+        paymentDate:
           type: string
           format: date
-          example: '1983-06-22'
-          description: "Дата заявления на получение кредита"
-        loanAgreementNumer:
-          type: string
-          example: "1-000000020"
-          description: "Номер договора кредита"
-        loanAgreementDate:
-          type: string
-          format: date
-          example: '1983-06-22'
-          description: "Дата договора кредита"
-        collateralAgreementNumer:
-          type: string
-          example: "1-000000020"
-          description: "Номер договора залога"
-        collateralAgreementDate:
-          type: string
-          format: date
-          example: '1983-06-22'
-          description: "Дата договора залога"
-        insuranceContractNumber:
-          type: string
-          example: "1-000000020"
-          description: "Номер договора КАСКО"
-        insuranceContractDate:
-          type: string
-          format: date
-          example: '1983-06-22'
-          description: "Дата договора КАСКО"
-    DebtLine:
-      type: object
-      properties:
-        document:
+          example: "2026-03-17T11:59:43"
+          description: Дата платежа
+        paymentAmount:
+          type: number
+          example: 10 000 000.00
+          description: Сумма платежа
+        paymentStatus:
           type: string
           minLength: 1
-          maxLength: 250
-          example: "Кредитное соглашение 1-000000000000000001 от 10.10.2025 10:00:00"
-          description: 
-        period:
+          maxLength: 100
+          example: "Ожидает оплаты"
+          description: Статус платежа
+        debtAfterPayment:
+          type: number
+          example: 10 000 000.00
+          description: Текущая задолженность после оплаты
+        nextPaymentDate:
           type: string
           format: date
-          example: "2025-11-26T00:00:00"
-          description: 
-        currency:
-          type: string
-          minLength: 3
-          maxLength: 3
-          example: "KZT"
-          description: 
-        debtType:
+          example: "2026-03-17T11:59:43"
+          description: Дата следующего платежа
+        nextPaymentAmount:
+          type: number
+          example: 10 000 000.00
+          description: Сумма следующего платежа
+        loanStatus:
           type: string
           minLength: 1
-          maxLength: 250
-          example: "Вознаграждение"
-          description: 
-        amount:
-          type: number
-          example: 1 000.00
-          description: 
-        amountIn:
-          type: number
-          example: 1 000.00
-          description: 
-        amountOut:
-          type: number
-          example: 1 000.00
-          description: 
+          maxLength: 100
+          example: "Действующий"
+          description: Статус кредита после оплаты
     PaymentScheduleLine:
       type: object
       properties:
@@ -780,12 +315,12 @@ components:
         period:
           type: string
           format: date
-          example: "2025-11-26T00:00:00"
+          example: 26.11.2025 0: 00: 00
           description: 
         paymentDate:
           type: string
           format: date
-          example: "2025-11-26T00:00:00"
+          example: 26.11.2025 0: 00: 00
           description: 
         principalDebt:
           type: number
@@ -825,7 +360,7 @@ components:
         period:
           type: string
           format: date
-          example: "2025-11-26T00:00:00"
+          example: 26.11.2025 0: 00: 00
           description: 
         currency:
           type: string
@@ -837,7 +372,7 @@ components:
           type: string
           minLength: 1
           maxLength: 250
-          example: "Основной долг"
+          example: "Вознаграждение"
           description: 
         amount:
           type: number
@@ -849,13 +384,13 @@ components:
         date:
           type: string
           format: date
-          example: "2025-11-26T00:00:00"
+          example: 26.11.2025 0: 00: 00
           description: 
         number:
           type: string
           minLength: 13
           maxLength: 13
-          example: "АА00123456789"
+          example: "CL40000000055"
           description: 
         schedule:
           type: array
@@ -869,6 +404,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DebtLine'
+    ResponsePaymentSchedule:
+      type: object
+      properties:
+        annualEffectiveInterestRate:
+          type: number
+          example: 12.8
+          description: ГЭСВ
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentScheduleLine'
+    RequestSetStatusCompleted:
+      type: object
+      properties:
+        creditPipelineNumber:
+          type: string
+          minLength: 1
+          maxLength: 10
+          example: "1234567890"
+          description: Номер заявки в кредитном конвеере
     ResponseLineActiveCreditAgreements:
       type: object
       properties:
@@ -994,6 +549,78 @@ components:
           type: number
           example: 10 000 000.00
           description: Сумма первого ежемесячного платежа
+    DebtLine:
+      type: object
+      properties:
+        document:
+          type: string
+          minLength: 1
+          maxLength: 250
+          example: "Кредитное соглашение 1-000000000000000001 от 10.10.2025 10:00:00"
+          description: 
+        period:
+          type: string
+          format: date
+          example: 26.11.2025 0: 00: 00
+          description: 
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: "KZT"
+          description: 
+        debtType:
+          type: string
+          minLength: 1
+          maxLength: 250
+          example: "Вознаграждение"
+          description: 
+        amount:
+          type: number
+          example: 1 000.00
+          description: 
+        amountIn:
+          type: number
+          example: 1 000.00
+          description: 
+        amountOut:
+          type: number
+          example: 1 000.00
+          description: 
+    ResponseRepaymentOptions:
+      type: object
+      properties:
+        creditPipelineNumber:
+          type: string
+          minLength: 1
+          maxLength: 10
+          example: "1234567890"
+          description: Номер заявки в кредитном конвейере
+        regularPayment:
+          $ref: '#/components/schemas/ResponseRegularPaymentOption'
+        earlyRepayment:
+          $ref: '#/components/schemas/ResponseEarlyRepaymentOption'
+    RequestSetStatusCancelled:
+      type: object
+      properties:
+        creditPipelineNumber:
+          type: string
+          minLength: 1
+          maxLength: 10
+          example: "1234567890"
+          description: Номер заявки в кредитном конвеере
+        refusalReason:
+          type: string
+          minLength: 1
+          maxLength: 150
+          example: "Передумал"
+          description: Причина отказа
+        comment:
+          type: string
+          minLength: 1
+          maxLength: 250
+          example: "Комментарий"
+          description: Комментарий
     ResponseLoanApplicationInfo:
       type: object
       properties:
@@ -1026,14 +653,3 @@ components:
           type: number
           example: 10 000 000.00
           description: Переплата по кредиту
-    ResponsePaymentSchedule:
-      type: object
-      properties:
-        annualEffectiveInterestRate:
-          type: number
-          example: 12.8
-          description: ГЭСВ
-        schedule:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentScheduleLine'
