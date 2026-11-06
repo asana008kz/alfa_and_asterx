@@ -5,7 +5,7 @@ info:
     Сервис микрокредитования
   version: kz
 servers:
-  - url: http: //127.0.0.1/1c_mfo/hs/
+  - url: http://127.0.0.1/1c_mfo/hs/
 security:
   - basicAuth: []
 
@@ -50,8 +50,7 @@ paths:
           description: Ошибка выполнения запроса
         '409':
           description: Статус заявки не позволяет выполнить отказ от кредита
-  /leads/loan_application_info/{creditPipelineNumber
-}:
+  /leads/loan_application_info/{creditPipelineNumber}:
     get:
       tags:
         - Личный кабинет
@@ -74,8 +73,7 @@ paths:
                 $ref: '#/components/schemas/ResponseLoanApplicationInfo'
         '404':
           description: Ресурс не найден
-  /leads/repayment_options/{creditPipelineNumber
-}:
+  /leads/repayment_options/{creditPipelineNumber}:
     get:
       tags:
         - Личный кабинет
@@ -100,8 +98,7 @@ paths:
           description: Ошибка выполнения запроса
         '404':
           description: Ресурс не найден
-  /leads/credit_agreement_info/{agreementNumber
-}:
+  /leads/credit_agreement_info/{agreementNumber}:
     get:
       tags:
         - Для цессии
@@ -126,8 +123,7 @@ paths:
                   $ref: '#/components/schemas/ResponseCreditAgreementInfo'
         '404':
           description: Ресурс не найден
-  /leads/active_credit_agreements/{IIN
-}:
+  /leads/active_credit_agreements/{IIN}:
     get:
       tags:
         - Для цессии
@@ -187,10 +183,7 @@ paths:
       responses:
         '200':
           description: Успешное выполнение операции
-  /leads/schedule/{KKNumber
-}/{loanRepaymentProcedure
-}/{issueDate
-}:
+  /leads/schedule/{KKNumber}/{loanRepaymentProcedure}/{issueDate}:
     get:
       tags:
         - График платежей
@@ -315,12 +308,12 @@ components:
         period:
           type: string
           format: date
-          example: 26.11.2025 0: 00: 00
+          example: 26.11.2025 0:00:00
           description: 
         paymentDate:
           type: string
           format: date
-          example: 26.11.2025 0: 00: 00
+          example: 26.11.2025 0:00:00
           description: 
         principalDebt:
           type: number
@@ -360,7 +353,7 @@ components:
         period:
           type: string
           format: date
-          example: 26.11.2025 0: 00: 00
+          example: 26.11.2025 0:00:00
           description: 
         currency:
           type: string
@@ -384,7 +377,7 @@ components:
         date:
           type: string
           format: date
-          example: 26.11.2025 0: 00: 00
+          example: 26.11.2025 0:00:00
           description: 
         number:
           type: string
@@ -561,7 +554,7 @@ components:
         period:
           type: string
           format: date
-          example: 26.11.2025 0: 00: 00
+          example: 26.11.2025 0:00:00
           description: 
         currency:
           type: string
